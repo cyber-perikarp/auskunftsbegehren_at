@@ -29,6 +29,8 @@ phpunit.phar
 tests/_output/*
 tests/_support/_generated
 
+auskunftsbegehren_at.code-workspace
+
 # Created by https://www.gitignore.io/api/visualstudiocode
 
 ### VisualStudioCode ###
