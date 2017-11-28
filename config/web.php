@@ -1,5 +1,7 @@
 <?php
 
+$env = require __DIR__ . '/env.php';
+$dev = require __DIR__ . '/dev_prod_by_host.php';
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -53,7 +55,7 @@ $config = [
     'params' => $params,
 ];
 
-if (YII_ENV_DEV) {
+if ($dev) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
