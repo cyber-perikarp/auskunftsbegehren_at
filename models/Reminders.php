@@ -14,7 +14,7 @@ use Yii;
  * @property string $created_at
  * @property string $due_at
  */
-class Reminders extends \yii\db\ActiveRecord
+class Reminders extends BaseModel
 {
     /**
      * @inheritdoc
