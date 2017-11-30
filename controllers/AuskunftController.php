@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-class auskunftController extends \yii\web\Controller
+class AuskunftController extends \yii\web\Controller
 {
     public function actionIndex()
     {
