@@ -22,7 +22,7 @@ use Yii;
  * @property string $tel
  * @property string $fax
  */
-class Adressdaten extends \yii\db\ActiveRecord
+class Adressdaten extends BaseModel
 {
     /**
      * @inheritdoc
