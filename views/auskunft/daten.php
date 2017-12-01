@@ -10,10 +10,11 @@ use yii\widgets\ActiveForm;
 ?>
 <div class="auskunft-daten">
 
-    <?php $form = ActiveForm::begin(); ?>
 <pre>
 <?php var_dump($model); ?>
 </pre>
+    <?php $form = ActiveForm::begin(); ?>
+
         <?= $form->field($model, 'firstName') ?>
         <?= $form->field($model, 'lastName') ?>
         <?= $form->field($model, 'street') ?>
@@ -21,6 +22,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'zip') ?>
         <?= $form->field($model, 'city') ?>
         <?= $form->field($model, 'additional') ?>
+
         <?= $form->field($model, 'email') ?>
         <?= $form->field($model, 'reminder')->checkbox() ?>
     

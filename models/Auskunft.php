@@ -16,6 +16,7 @@ class Auskunft extends Model {
     public $additional;
     public $reminder;
     public $IdType;
+    public $IdTypes;
 
     public $targets;
 
@@ -44,5 +45,9 @@ class Auskunft extends Model {
             'email' => "Emailadresse",
             'reminder' => "Erinnerung",
         ];
+    }
+
+    public function getIdTypes () {
+       return IdTypes::find()->all();
     }
 }

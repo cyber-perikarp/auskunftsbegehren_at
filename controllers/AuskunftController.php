@@ -15,7 +15,6 @@ class AuskunftController extends \yii\web\Controller
     public function actionDaten()
     {
         $model = new Auskunft();
-        $idTypes = IdTypes::findAll();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
@@ -26,7 +25,6 @@ class AuskunftController extends \yii\web\Controller
 
         return $this->render('daten', [
             'model' => $model,
-            "idTypes" => $idTypes
         ]);
     }
 }
