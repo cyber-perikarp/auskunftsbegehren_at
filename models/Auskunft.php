@@ -15,7 +15,7 @@ class Auskunft extends Model {
     public $email;
     public $additional;
     public $reminder;
-    public $idType;
+    public $IdType;
 
     public $targets;
 
@@ -45,11 +45,4 @@ class Auskunft extends Model {
             'reminder' => "Erinnerung",
         ];
     }
-
-    public function getidType()
-    {
-        return $this->hasOne(idTypes::className(), ['id' => 'idType']);
-    }
-
-
 }
