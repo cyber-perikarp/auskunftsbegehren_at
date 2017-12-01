@@ -24,6 +24,7 @@ class Auskunft extends Model {
         return [
             [['firstName', 'lastName', 'street', 'streetNumber', 'zip', 'city'], 'required', 'string', 'max' => 64],
             [['additional'], 'string', 'max' => 256],
+            [['idType'], 'integer', 'max' => 2],
             ['email', 'email'],
             ['reminder', 'default', 'value' => false],
         ];
