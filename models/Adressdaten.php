@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "adressdaten".
+ * This is the model class for table "Adressdaten".
  *
  * @property integer $id
  * @property integer $idfile
@@ -29,7 +29,7 @@ class Adressdaten extends BaseModel
      */
     public static function tableName()
     {
-        return 'adressdaten';
+        return 'Adressdaten';
     }
 
     /**

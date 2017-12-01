@@ -1,5 +1,5 @@
 <p>
     <?php
-        var_dump($model);
+        var_dump($adressdaten);
     ?>
 </p>
