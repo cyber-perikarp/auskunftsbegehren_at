@@ -1,9 +1,8 @@
 <?php
 
-use Yii;
 namespace app\controllers;
-use app\Models\Auskunft;
-use app\Models\Adressdaten;
+use app\models\Auskunft;
+use app\models\Adressdaten;
 
 class AuskunftController extends \yii\web\Controller
 {
