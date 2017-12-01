@@ -29,7 +29,7 @@ class Adressdaten extends BaseModel
      */
     public static function tableName()
     {
-        return 'Adressdaten';
+        return 'adressdaten';
     }
 
     /**

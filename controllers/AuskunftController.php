@@ -12,7 +12,10 @@ class AuskunftController extends \yii\web\Controller
     }
 
     public function actionTargets() {
-        $adressdaten = new Adressdaten;
-        return $this->render('targets');
+        $adressModel = new Adressdaten;
+        $allEntries = $adressModel::findAll(10);
+        return $this->render('targets', array(
+            "adressdaten" => $allEntries
+        ));
     }
 }
