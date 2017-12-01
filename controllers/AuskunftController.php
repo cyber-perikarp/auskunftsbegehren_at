@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+use Yii;
 use app\models\Auskunft;
 use app\models\Adressdaten;
 
@@ -11,11 +12,19 @@ class AuskunftController extends \yii\web\Controller
         return $this->render('index');
     }
 
-    public function actionTargets() {
-        $adressModel = new Adressdaten;
-        $allEntries = $adressModel::findAll(10);
-        return $this->render('targets', array(
-            "adressdaten" => $allEntries
-        ));
+    public function actionDaten()
+    {
+        $model = new Auskunft();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                // form inputs are valid, do something here
+                return;
+            }
+        }
+
+        return $this->render('daten', [
+            'model' => $model,
+        ]);
     }
 }

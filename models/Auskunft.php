@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\base\Model;
 
 class Auskunft extends Model {
     public $firstName;
@@ -22,11 +22,34 @@ class Auskunft extends Model {
     public function rules()
     {
         return [
-            [['firstName', 'lastName', 'street', 'streetNumber', 'zip', 'city'], 'required', 'string', 'max' => 64],
+            [['firstName', 'lastName', 'street', 'streetNumber', 'zip', 'city'], 'required'],
             [['additional'], 'string', 'max' => 256],
             [['idType'], 'integer', 'max' => 2],
             ['email', 'email'],
             ['reminder', 'default', 'value' => false],
         ];
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'firstName' => "Vorname",
+            'lastName' => "Nachname",
+            'street' => "Straße",
+            'streetNumber' => "Hausnummer",
+            'zip' => "Postleitzahl",
+            'city' => "Stadt",
+            'additional' => "Zusatsangaben",
+            'idType' => "Ausweis",
+            'email' => "Emailadresse",
+            'reminder' => "Erinnerung",
+        ];
+    }
+
+    public function getidType()
+    {
+        return $this->hasOne(idTypes::className(), ['id' => 'idType']);
+    }
+
+
 }
