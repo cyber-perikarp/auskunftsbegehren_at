@@ -21,3 +21,10 @@ checks:
 build:
     environment:
         php: '7.1.6'
+    tests:
+        override:
+            -
+                command: 'vendor/bin/phpunit --coverage-clover=codecoverage'
+                coverage:
+                    file: 'codecoverage'
+                    format: 'clover'
