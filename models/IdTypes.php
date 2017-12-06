@@ -11,7 +11,7 @@ use Yii;
  * @property string $name
  * @property string $nameForText
  */
-class IdTypes extends \yii\db\ActiveRecord
+class IdTypes extends BaseModel
 {
     /**
      * @inheritdoc

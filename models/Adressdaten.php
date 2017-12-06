@@ -24,6 +24,8 @@ use Yii;
  */
 class Adressdaten extends BaseModel
 {
+    private $uid;
+    
     /**
      * @inheritdoc
      */
@@ -77,5 +79,9 @@ class Adressdaten extends BaseModel
     public static function find()
     {
         return new AdressdatenQuery(get_called_class());
+    }
+
+    public function getUid() {
+        return $this->idfile . "-" . $this->quelldatei;
     }
 }

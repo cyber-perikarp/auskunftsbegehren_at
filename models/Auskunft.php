@@ -4,30 +4,24 @@ namespace app\models;
 
 use yii\base\Model;
 
-class Auskunft extends Model {
-    public $firstName;
-    public $lastName;
-    public $street;
-    public $streetNumber;
-    public $zip;
-    public $city;
-    
-    public $email;
-    public $additional;
-    public $reminder;
-    public $IdType;
-    public $IdTypes;
-
-    public $targets;
+class Auskunft extends BaseModel {
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'auskunft';
+    }
 
     public function rules()
     {
         return [
             [['firstName', 'lastName', 'street', 'streetNumber', 'zip', 'city'], 'required'],
             [['additional'], 'string', 'max' => 256],
-            [['idType'], 'integer', 'max' => 2],
-            ['email', 'email'],
-            ['reminder', 'default', 'value' => false],
+            [['idType'], 'exist', 'targetAttribute' => 'id', 'targetClass' => IdTypes::className()],
+            [['email'], 'email'],
+            [['reminder'], 'default', 'value' => false],
+            [['targets'], 'safe']
         ];
     }
 
@@ -44,6 +38,7 @@ class Auskunft extends Model {
             'idType' => "Ausweis",
             'email' => "Emailadresse",
             'reminder' => "Erinnerung",
+            "targets" => "Ziele"
         ];
     }
 

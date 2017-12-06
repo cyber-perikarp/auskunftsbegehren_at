@@ -7,12 +7,10 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Auskunft */
 /* @var $form ActiveForm */
+
+$this->title = "Generieren";
 ?>
 <div class="auskunft-daten">
-
-<pre>
-<?php var_dump($model); ?>
-</pre>
     <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($model, 'firstName') ?>
@@ -21,10 +19,13 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'streetNumber') ?>
         <?= $form->field($model, 'zip') ?>
         <?= $form->field($model, 'city') ?>
+        <?= $form->field($model, 'idType')->dropDownList(ArrayHelper::map($idTypes, 'id', 'name')); ?>
         <?= $form->field($model, 'additional') ?>
 
         <?= $form->field($model, 'email') ?>
         <?= $form->field($model, 'reminder')->checkbox() ?>
+
+        <?= $form->field($model, 'targets')->checkboxList(ArrayHelper::map($adressdaten, 'uid', 'name')); ?>
     
         <div class="form-group">
             <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
