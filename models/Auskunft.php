@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use yii\base\Model;
-
 class Auskunft extends BaseModel {
     /**
      * @inheritdoc
@@ -16,12 +14,12 @@ class Auskunft extends BaseModel {
     public function rules()
     {
         return [
-            [['firstName', 'lastName', 'street', 'streetNumber', 'zip', 'city'], 'required'],
+            [['firstName', 'lastName', 'street', 'streetNumber', 'zip', 'city', 'email'], 'required'],
             [['additional'], 'string', 'max' => 256],
             [['idType'], 'exist', 'targetAttribute' => 'id', 'targetClass' => IdTypes::className()],
             [['email'], 'email'],
             [['reminder'], 'default', 'value' => false],
-            [['targets'], 'safe']
+            [['targets', 'downloadId', 'downloadPassword'], 'safe']
         ];
     }
 

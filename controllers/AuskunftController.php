@@ -21,8 +21,8 @@ class AuskunftController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                $this->downloadId = hash("sha512", \Yii::$app->params["salt"] . Uuid::uuid4()->toString());
-                $this->downloadPassword = hash("sha512", \Yii::$app->params["salt"] . Uuid::uuid4()->toString());
+                $model->downloadId = hash("sha512", \Yii::$app->params["salt"] . Uuid::uuid4()->toString());
+                $model->downloadPassword = hash("sha512", \Yii::$app->params["salt"] . Uuid::uuid4()->toString());
                 $model->targets = json_encode($model->targets);
                 $model->save();
                 return $this->redirect('');
