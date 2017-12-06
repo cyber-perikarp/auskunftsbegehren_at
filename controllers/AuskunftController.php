@@ -6,7 +6,6 @@ use app\models\Auskunft;
 use app\models\Adressdaten;
 use app\models\IdTypes;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 class AuskunftController extends \yii\web\Controller
 {
     public function actionIndex()
@@ -22,7 +21,8 @@ class AuskunftController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                $model->sessionId = Uuid::uuid4()->toString();
+                $this->downloadId = hash("sha512", \Yii::$app->params["salt"] . Uuid::uuid4()->toString());
+                $this->downloadPassword = hash("sha512", \Yii::$app->params["salt"] . Uuid::uuid4()->toString());
                 $model->targets = json_encode($model->targets);
                 $model->save();
                 return $this->redirect('');

@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'adminEmail' => 'vorstand@cyber-perikarp.eu',
+    'adminEmail' => $env["EMAIL_FROM"],
+    "salt" => $env["SALT"]
 ];
