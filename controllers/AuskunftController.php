@@ -5,6 +5,7 @@ use Yii;
 use app\models\Auskunft;
 use app\models\Adressdaten;
 use app\models\IdTypes;
+use app\models\Reminders;
 use Ramsey\Uuid\Uuid;
 class AuskunftController extends \yii\web\Controller
 {
@@ -21,10 +22,7 @@ class AuskunftController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                $model->downloadId = hash("sha512", \Yii::$app->params["salt"] . Uuid::uuid4()->toString());
-                $model->downloadPassword = hash("sha512", \Yii::$app->params["salt"] . Uuid::uuid4()->toString());
-                $model->targets = json_encode($model->targets);
-                $model->save();
+                $this->saveAuskunft($model);
                 return $this->redirect('');
             }
         }
@@ -34,5 +32,18 @@ class AuskunftController extends \yii\web\Controller
             'idTypes' => $idTypes,
             'adressdaten' => $adressdaten
         ]);
+    }
+    
+    private function saveAuskunft($model) {
+        // Wir generieren aus unserem Salt und einer zufälligen UID je einen Hash für die DownloadID und das Download Passwort
+        $model->downloadId = hash("sha512", \Yii::$app->params["salt"] . Uuid::uuid4()->toString());
+        $model->downloadPassword = hash("sha512", \Yii::$app->params["salt"] . Uuid::uuid4()->toString());
+        // Weil Relationen da unnötig viel Aufwand wären speichern wir alle Ziele als Json
+        $model->targets = json_encode($model->targets);
+        
+        if ($model->save()) {
+            return true;
+        }
+        return false;
     }
 }
