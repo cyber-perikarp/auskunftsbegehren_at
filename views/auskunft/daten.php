@@ -25,7 +25,7 @@ $this->title = "Generieren";
         <?= $form->field($model, 'email') ?>
         <?= $form->field($model, 'reminder')->checkbox() ?>
 
-        <?= $form->field($model, 'targets')->checkboxList(ArrayHelper::map($adressdaten, 'uid', 'name')); ?>
+        <?= $form->field($model, 'targets')->checkboxList(ArrayHelper::map($adressdaten, 'id', 'name')); ?>
     
         <div class="form-group">
             <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
