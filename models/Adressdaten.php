@@ -7,8 +7,7 @@ use Yii;
 /**
  * This is the model class for table "Adressdaten".
  *
- * @property integer $id
- * @property integer $idfile
+ * @property string $id
  * @property string $quelldatei
  * @property string $name
  * @property string $branche
@@ -24,8 +23,7 @@ use Yii;
  */
 class Adressdaten extends BaseModel
 {
-    private $uid;
-    
+
     /**
      * @inheritdoc
      */
@@ -77,9 +75,5 @@ class Adressdaten extends BaseModel
     public static function find()
     {
         return new AdressdatenQuery(get_called_class());
-    }
-
-    public function getUid() {
-        return $this->idfile . "-" . $this->quelldatei;
     }
 }

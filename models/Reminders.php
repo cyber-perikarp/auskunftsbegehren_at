@@ -9,7 +9,6 @@ use Yii;
  *
  * @property integer $id
  * @property string $email
- * @property integer $idfile
  * @property string $quelldatei
  * @property string $created_at
  * @property string $due_at
@@ -30,7 +29,7 @@ class Reminders extends BaseModel
     public function rules()
     {
         return [
-            [['email', 'idfile', 'quelldatei', 'created_at', 'due_at'], 'required'],
+            [['email', 'quelldatei', 'created_at', 'due_at'], 'required'],
             [['targets'], 'string'],
             [['created_at', 'due_at'], 'safe'],
             [['email', 'quelldatei'], 'string', 'max' => 64],
