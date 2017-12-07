@@ -2,6 +2,8 @@
 namespace app\commands;
 use yii\console\Controller;
 use app\models\Auskunft;
+use app\models\Reminders;
+use Ramsey\Uuid\Uuid;
 
 class GeneratePdfController extends Controller
 {
@@ -14,7 +16,18 @@ class GeneratePdfController extends Controller
     public function actionIndex()
     {
         foreach ($this->allDatasets as $dataSet) {
+        	$targets = json_decode($dataSet["targets"]);
+
             var_dump($dataSet["email"]);
+            var_dump($targets);
         }
     }
+
+    private function generateSaltedUUID() {
+		return hash("sha512", \Yii::$app->params["salt"] . Uuid::uuid4()->toString());
+	}
+
+	private function reminder($email, $targets) {
+
+	}
 }
