@@ -40,9 +40,9 @@ class Adressdaten extends BaseModel
     public function rules()
     {
         return [
-            [['idfile', 'quelldatei', 'name', 'branche', 'typ', 'adresse', 'plz', 'stadt', 'bundesland', 'land'], 'required'],
-            [['idfile', 'plz'], 'integer'],
-            [['quelldatei', 'adresse', 'stadt', 'bundesland', 'email'], 'string', 'max' => 64],
+            [['id', 'name', 'branche', 'typ', 'adresse', 'plz', 'stadt', 'bundesland', 'land'], 'required'],
+            [['plz'], 'integer'],
+            [['adresse', 'stadt', 'bundesland', 'email'], 'string', 'max' => 64],
             [['name'], 'string', 'max' => 128],
             [['branche', 'typ', 'tel', 'fax'], 'string', 'max' => 32],
             [['land'], 'string', 'max' => 16],
@@ -56,8 +56,6 @@ class Adressdaten extends BaseModel
     {
         return [
             'id' => 'ID',
-            'idfile' => 'Idfile',
-            'quelldatei' => 'Quelldatei',
             'name' => 'Name',
             'branche' => 'Branche',
             'typ' => 'Typ',

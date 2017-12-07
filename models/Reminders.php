@@ -31,7 +31,7 @@ class Reminders extends BaseModel
     {
         return [
             [['email', 'idfile', 'quelldatei', 'created_at', 'due_at'], 'required'],
-            [['idfile'], 'integer'],
+            [['targets'], 'string'],
             [['created_at', 'due_at'], 'safe'],
             [['email', 'quelldatei'], 'string', 'max' => 64],
         ];
@@ -45,8 +45,7 @@ class Reminders extends BaseModel
         return [
             'id' => 'ID',
             'email' => 'Email',
-            'idfile' => 'Idfile',
-            'quelldatei' => 'Quelldatei',
+            'targets' => 'Ziele',
             'created_at' => 'Created At',
             'due_at' => 'Due At',
         ];

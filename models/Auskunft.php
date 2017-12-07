@@ -19,7 +19,7 @@ class Auskunft extends BaseModel {
             [['idType'], 'exist', 'targetAttribute' => 'id', 'targetClass' => IdTypes::className()],
             [['email'], 'email'],
             [['reminder'], 'default', 'value' => false],
-            [['targets', 'downloadId', 'downloadPassword'], 'safe']
+            [['targets'], 'safe']
         ];
     }
 

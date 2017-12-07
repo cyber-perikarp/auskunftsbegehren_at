@@ -3,6 +3,7 @@ namespace app\commands;
 use yii\console\Controller;
 use app\models\Auskunft;
 use app\models\Reminders;
+use app\models\Adressdaten;
 use Ramsey\Uuid\Uuid;
 
 class GeneratePdfController extends Controller
@@ -10,6 +11,7 @@ class GeneratePdfController extends Controller
     private $allDatasets;
     public function __construct($id, $module, $config = array()) {
         $this->allDatasets = Auskunft::find()->all();
+
         parent::__construct($id, $module, $config);
     }
 
@@ -19,7 +21,9 @@ class GeneratePdfController extends Controller
         	$targets = json_decode($dataSet["targets"]);
 
             var_dump($dataSet["email"]);
-            var_dump($targets);
+            foreach ($targets as $target) {
+            	var_dump(Adressdaten::find($target));
+            }
         }
     }
 
