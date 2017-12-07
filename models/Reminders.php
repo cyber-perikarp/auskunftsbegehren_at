@@ -29,10 +29,10 @@ class Reminders extends BaseModel
     public function rules()
     {
         return [
-            [['email', 'quelldatei', 'created_at', 'due_at'], 'required'],
+            [["targets", 'email', 'created_at', 'due_at'], 'required'],
             [['targets'], 'string'],
             [['created_at', 'due_at'], 'safe'],
-            [['email', 'quelldatei'], 'string', 'max' => 64],
+            [['email'], 'string', 'max' => 64],
         ];
     }
 
