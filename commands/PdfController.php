@@ -8,7 +8,7 @@ use app\models\Adressdaten;
 use app\models\Statistik;
 use Ramsey\Uuid\Uuid;
 
-class GeneratePdfController extends Controller
+class PdfController extends Controller
 {
     private $allDatasets;
     private $statistik;
