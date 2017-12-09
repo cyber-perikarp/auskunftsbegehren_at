@@ -7,6 +7,7 @@ use app\models\Reminders;
 use app\models\Adressdaten;
 use app\models\Statistik;
 use Ramsey\Uuid\Uuid;
+use tFPDF;
 
 class PdfController extends Controller
 {
@@ -63,5 +64,16 @@ class PdfController extends Controller
 			$targetEntry->counter++;
 			$targetEntry->save();
 		}
+	}
+
+	private function generatePdf () {
+		$pdf = new tFPDF\PDF();
+		$pdf->AddPage();
+		$pdf->AddFont('DejaVu','','DejaVuSansCondensed.ttf',true);
+		$pdf->SetFont('DejaVu','',14);
+	}
+
+	private function parseTemplate() {
+
 	}
 }
