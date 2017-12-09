@@ -10,11 +10,6 @@ class AuskunftController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        return $this->render('index');
-    }
-
-    public function actionDaten()
-    {
         $model = new Auskunft();
         $idTypes = IdTypes::find()->all();
         $adressdaten = Adressdaten::find()->all();
@@ -25,7 +20,7 @@ class AuskunftController extends \yii\web\Controller
 	            $model->targets = json_encode($model->targets);
 
 	            if ($model->save()) {
-		            return $this->redirect('');
+		            return $this->redirect('auskunft/success');
 	            }
             }
         }
@@ -36,4 +31,15 @@ class AuskunftController extends \yii\web\Controller
             'adressdaten' => $adressdaten
         ]);
     }
+
+	public function actionSucess()
+	{
+		return $this->render('suceess');
+	}
+
+	public function actionDownload()
+	{
+		return $this->render('download');
+	}
+
 }

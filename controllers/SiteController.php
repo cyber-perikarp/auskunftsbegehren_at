@@ -45,4 +45,14 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+	public function actionImprint()
+	{
+		return $this->render('imprint');
+	}
+
+	public function actionPrivacy()
+	{
+		return $this->render('privacy');
+	}
 }

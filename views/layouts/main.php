@@ -38,9 +38,9 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Start', 'url' => ['/auskunft/index']],
-            ['label' => 'Contact', 'url' => ['/site/contact']]
+            ['label' => 'Startseite', 'url' => ['/site/index']],
+            ['label' => 'Auskunft verlangen!', 'url' => ['/auskunft/index']],
+            ['label' => 'Kontakt', 'url' => ['/site/contact']]
         ],
     ]);
     NavBar::end();
@@ -54,8 +54,8 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">Impressum</p>
-        <p class="pull-right">Datenschutzerklärung</p>
+		<p class="pull-left"><a href="/site/imprint">Impressum</a></p>
+		<p class="pull-right"><a href="/site/privacy">Datenschutzerklärung</a></p>
     </div>
 </footer>
 
