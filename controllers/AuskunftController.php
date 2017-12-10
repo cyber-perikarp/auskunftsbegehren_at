@@ -34,12 +34,14 @@ class AuskunftController extends \yii\web\Controller
 
 	public function actionSucess()
 	{
-		return $this->render('suceess');
+		return $this->render('sucess');
 	}
 
-	public function actionDownload()
+	public function actionDownload($foo)
 	{
-		return $this->render('download');
+		return $this->render('download', [
+			'foo' => $foo,
+		]);
 	}
 
 }
