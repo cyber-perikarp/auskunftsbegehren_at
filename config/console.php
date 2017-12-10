@@ -3,6 +3,7 @@
 $env = require __DIR__ . '/env.php';
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$mail = require __DIR__ . '/mail.php';
 
 $config = [
     'id' => 'basic-console',
@@ -22,6 +23,7 @@ $config = [
             ],
         ],
         'db' => $db,
+		'mailer' => $mail,
     ],
     'params' => $params,
     /*

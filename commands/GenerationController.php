@@ -8,7 +8,7 @@ use app\models\Adressdaten;
 use app\models\Statistik;
 use Ramsey\Uuid\Uuid;
 
-class PdfController extends Controller
+class GenerationController extends Controller
 {
     private $allDatasets;
     private $statistik;
@@ -35,6 +35,7 @@ class PdfController extends Controller
             	\Yii::info("Target: " . $target);
             	$this->saveStats($target);
 				if (!$this->generatePdf(Adressdaten::findOne(["id" => $target]), $dataSet, $targetFolder)) {
+					\Yii::error("Oh noes! PDF Creation failed");
 					$this->error = true;
 				}
             }
@@ -46,6 +47,7 @@ class PdfController extends Controller
 
 				// Wenn das zip nicht erstellt werden konnte ist das ein fehler
 				if (!$this->generateZipFile($targetFolder)) {
+					\Yii::error("Oh noes! ZIP Creation failed");
 					$this->error = true;
 				}
 			}
@@ -55,6 +57,8 @@ class PdfController extends Controller
 				if($dataSet["reminder"]) {
 					$this->addReminder($dataSet["email"], $dataSet["targets"]);
 				}
+
+				$this->sendDownloadEmail($targetFolder, $dataSet["email"]);
 			}
         }
     }
@@ -201,5 +205,19 @@ class PdfController extends Controller
 			return true;
 		}
 		return false;
+	}
+
+	private function sendDownloadEmail ($folder, $email) {
+    	$template = file_get_contents(\Yii::$app->params["baseDir"] . "/templates/email/download.txt");
+    	$downloadUrl = \Yii::$app->params["host"] . "/auskunft/download/" . $folder;
+
+		$template = str_replace("@@url@@", $downloadUrl, $template);
+
+		\Yii::$app->mailer->compose()
+			->setFrom(\Yii::$app->params["email_from"])
+			->setTo($email)
+			->setSubject("Deine Datenauskunftsbegehren stehen zum Download bereit!")
+			->setTextBody($template)
+			->send();
 	}
 }

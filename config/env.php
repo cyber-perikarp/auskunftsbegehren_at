@@ -8,5 +8,9 @@ return [
     "DB_USERNAME" => Config::env("DB_USERNAME"),
     "DB_PASSWORD" => Config::env("DB_PASSWORD"),
     "EMAIL_FROM" => Config::env("EMAIL_FROM"),
-    "SALT" => Config::env("SALT")
+	"EMAIL_USERNAME" => Config::env("EMAIL_USERNAME"),
+	"EMAIL_PASSWORD" => Config::env("EMAIL_PASSWORD"),
+	"EMAIL_SERVER" => Config::env("EMAIL_SERVER"),
+    "SALT" => Config::env("SALT"),
+	"HOST" => Config::env("HOST"),
 ];

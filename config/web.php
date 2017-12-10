@@ -4,6 +4,7 @@ $env = require __DIR__ . '/env.php';
 $dev = require __DIR__ . '/dev_prod_by_host.php';
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$mail = require __DIR__ . '/mail.php';
 
 $config = [
     'id' => 'basic',
@@ -25,13 +26,6 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
-        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -42,6 +36,7 @@ $config = [
             ],
         ],
         'db' => $db,
+		'mailer' => $mail,
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
