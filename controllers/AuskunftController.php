@@ -37,11 +37,17 @@ class AuskunftController extends \yii\web\Controller
 		return $this->render('sucess');
 	}
 
-	public function actionDownload($foo)
+	public function actionDownload($id)
 	{
-		return $this->render('download', [
-			'foo' => $foo,
-		]);
+		$path = \Yii::$app->params["outputBaseDir"] . "/" . $id . "/download.zip";
+
+		if (!file_exists($path)) {
+			throw new \yii\web\NotFoundHttpException("Link abgelaufen.");
+		}
+
+		Yii::$app->response->sendFile($path, "auskunftsbegehren.zip", array("mimeType" => "application/zip", "inline" => false));
+
+//		return $this->redirect('auskunft/downloadsuccess');
 	}
 
 }

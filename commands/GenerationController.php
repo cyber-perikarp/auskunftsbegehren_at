@@ -64,7 +64,7 @@ class GenerationController extends Controller
 					}
 
 					$this->sendDownloadEmail($targetFolderHash, $dataSet["email"]);
-//				$dataSet->delete();
+					$dataSet->delete();
 				}
 			}
         }
