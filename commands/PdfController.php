@@ -26,6 +26,7 @@ class PdfController extends Controller
         	$this->error = false;
 
         	$targets = json_decode($dataSet["targets"]);
+
 			$targetFolder = $this->createFolder();
 
 			$dataSet["idType"] = IdTypes::findOne(["id" => $dataSet["idType"]])["nameForText"];
@@ -43,11 +44,17 @@ class PdfController extends Controller
             	\Yii::trace("Deleting log files from generation");
 				$this->deleteTempFiles($targetFolder);
 
+				// Wenn das zip nicht erstellt werden konnte ist das ein fehler
+				if (!$this->generateZipFile($targetFolder)) {
+					$this->error = true;
+				}
+			}
+
+			// Wenn bis jetzt alles gut war können wir die Erinnerung speichern und die Email verschicken :)
+			if (!$this->error) {
 				if($dataSet["reminder"]) {
 					$this->addReminder($dataSet["email"], $dataSet["targets"]);
 				}
-			} else {
-            	\Yii::error("Oh noes!");
 			}
         }
     }
@@ -91,7 +98,6 @@ class PdfController extends Controller
 				foreach( glob($targetFolder . "/*." . $extension) as $file ) {
 					unlink($file);
 				}
-
 			}
 		}
 
@@ -108,6 +114,31 @@ class PdfController extends Controller
 
 	private function generateHash () {
 		return hash("sha512", \Yii::$app->params["salt"] . Uuid::uuid4()->toString());
+	}
+
+	private function generateZipFile ($path) {
+    	$zipFile = $path . "/download.zip";
+    	var_dump($zipFile);
+
+    	try {
+			$zip = new \ZipArchive();
+			$zip->open($zipFile, \ZipArchive::CREATE);
+			$zip->addGlob($path . "/*.pdf", GLOB_NOSORT, array('add_path' => '/','remove_all_path' => TRUE));
+			$zip->close();
+		} catch (\Exception $e) {
+    		return false;
+		}
+
+    	if (file_exists($zipFile)) {
+			if ($path) {
+				foreach( glob($path . "/*.pdf") as $file ) {
+					unlink($file);
+				}
+			}
+
+			return true;
+		}
+		return false;
 	}
 
 	private function generateFilename($oldName) {
