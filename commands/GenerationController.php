@@ -128,7 +128,6 @@ class GenerationController extends Controller
 
 	private function generateZipFile ($path) {
     	$zipFile = $path . "/download.zip";
-    	var_dump($zipFile);
 
     	try {
 			$zip = new \ZipArchive();
