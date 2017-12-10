@@ -27,38 +27,45 @@ class GenerationController extends Controller
 
         	$targets = json_decode($dataSet["targets"]);
 
-			$targetFolder = $this->createFolder();
+        	$targetFolderHash = $this->generateHash();
+			$targetFolder = \Yii::$app->params["outputBaseDir"] . "/" . $targetFolderHash;
 
-			$dataSet["idType"] = IdTypes::findOne(["id" => $dataSet["idType"]])["nameForText"];
+			if (!$this->createFolder($targetFolder)) {
+				\Yii::error("Oh noes! Folder Creation failed");
+				$this->error = true;
+			} else {
+				$dataSet["idType"] = IdTypes::findOne(["id" => $dataSet["idType"]])["nameForText"];
 
-            foreach ($targets as $target) {
-            	\Yii::info("Target: " . $target);
-            	$this->saveStats($target);
-				if (!$this->generatePdf(Adressdaten::findOne(["id" => $target]), $dataSet, $targetFolder)) {
-					\Yii::error("Oh noes! PDF Creation failed");
-					$this->error = true;
-				}
-            }
-
-            // Die Logdateien sollen nur gelöscht und die Erinnerungen nur gespeichert werden wenn die pdf generierung erfolgreich war.
-            if (!$this->error) {
-            	\Yii::trace("Deleting log files from generation");
-				$this->deleteTempFiles($targetFolder);
-
-				// Wenn das zip nicht erstellt werden konnte ist das ein fehler
-				if (!$this->generateZipFile($targetFolder)) {
-					\Yii::error("Oh noes! ZIP Creation failed");
-					$this->error = true;
-				}
-			}
-
-			// Wenn bis jetzt alles gut war können wir die Erinnerung speichern und die Email verschicken :)
-			if (!$this->error) {
-				if($dataSet["reminder"]) {
-					$this->addReminder($dataSet["email"], $dataSet["targets"]);
+				foreach ($targets as $target) {
+					\Yii::info("Target: " . $target);
+					$this->saveStats($target);
+					if (!$this->generatePdf(Adressdaten::findOne(["id" => $target]), $dataSet, $targetFolder)) {
+						\Yii::error("Oh noes! PDF Creation failed");
+						$this->error = true;
+					}
 				}
 
-				$this->sendDownloadEmail($targetFolder, $dataSet["email"]);
+				// Die Logdateien sollen nur gelöscht und die Erinnerungen nur gespeichert werden wenn die pdf generierung erfolgreich war.
+				if (!$this->error) {
+					\Yii::trace("Deleting log files from generation");
+					$this->deleteTempFiles($targetFolder);
+
+					// Wenn das zip nicht erstellt werden konnte ist das ein fehler
+					if (!$this->generateZipFile($targetFolder)) {
+						\Yii::error("Oh noes! ZIP Creation failed");
+						$this->error = true;
+					}
+				}
+
+				// Wenn bis jetzt alles gut war können wir die Erinnerung speichern und die Email verschicken :)
+				if (!$this->error) {
+					if($dataSet["reminder"]) {
+						$this->addReminder($dataSet["email"], $dataSet["targets"]);
+					}
+
+					$this->sendDownloadEmail($targetFolderHash, $dataSet["email"]);
+//				$dataSet->delete();
+				}
 			}
         }
     }
@@ -107,8 +114,7 @@ class GenerationController extends Controller
 
 	}
 
-	private function createFolder() {
-		$targetFolder = \Yii::$app->params["outputBaseDir"] . "/" . $this->generateHash();
+	private function createFolder($targetFolder) {
 		\Yii::info("Target Folder: " . $targetFolder);
 		mkdir($targetFolder);
 		copy(\Yii::$app->params["baseDir"] . "/templates/brief/base.tex", $targetFolder . "/base.tex");
