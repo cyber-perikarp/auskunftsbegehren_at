@@ -19,6 +19,7 @@
 \usepackage[english, ngerman]{babel}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
+\usepackage{textcomp}
 
 \setkomavar{fromname}{@@vorname@@ @@nachname@@}
 \setkomavar{fromaddress}{@@strasse@@ @@hausnummer@@\\@@plz@@ @@ort@@}
@@ -27,6 +28,7 @@
 \newcommand{\ort}{@@ort@@}
 \newcommand{\ziel}{@@zielname@@\\@@zieladresse@@\\@@zielplz@@ @@zielort@@}
 \newcommand{\ausweis}{@@ausweistext@@}
+%@@zusatzinfo@@
 
 % signature same indention level as rest
 \renewcommand*{\raggedsignature}{\raggedright}

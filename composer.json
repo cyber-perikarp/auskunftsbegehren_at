@@ -19,8 +19,7 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "codemix/yii2-configloader": "^0.9.1",
-        "ramsey/uuid": "^3.7",
-        "adambrett/shell-wrapper": "^0.8.0"
+        "ramsey/uuid": "^3.7"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

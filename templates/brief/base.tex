@@ -1,15 +1,15 @@
 \documentclass[%
-  fontsize=11pt, % Schriftgröße
+  fontsize=12pt, % Schriftgröße
   version=last%  % Neueste Version von KOMA-Skript verwenden
 ]{scrlttr2}
 
 \LoadLetterOption{template}
 
 \begin{document}
-\setkomavar{date}{\ort, den \today}
+\setkomavar{date}{\ort{}, den \today{}}
 \begin{letter}
 {
-  \ziel
+  \ziel{}
 }
 
 \opening{Sehr geehrte Damen und Herren,}
@@ -26,17 +26,24 @@ Gemäß § 1, 26 u.a. DSG 2000 ersuche ich Sie um Auskunft über die über mich 
 
 Ich ersuche Sie, auch Daten bekannt zu geben, die mit meinen Daten direkt oder indirekt verknüpft sind oder verknüpft werden können.\\
 Sollten Daten einem Dienstleister gemäß § 10 DSG 2000 überlassen worden sein, so ersuche ich um die Bekanntgabe des Namens und der Anschrift dieses Dienstleisters.\\
-Zum Nachweis meiner Identität lege ich eine Kopie meines \ausweis bei.\\
-Sollten noch Zweifel an meiner Identität bestehen, ersuche ich Sie mir die Auskunft per eingeschriebenem Brief zu eigenen Händen zuzustellen, da auch so die Identität überprüft werden kann. Meiner Mitwirkungspflicht gemäß § 26 Abs 3 DSG komme ich somit nach.\par
+Zum Nachweis meiner Identität lege ich eine Kopie meines \ausweis{} bei.\\
+Sollten noch Zweifel an meiner Identität bestehen, ersuche ich Sie mir die Auskunft per eingeschriebenem Brief zu eigenen Händen zuzustellen, da auch so die Identität überprüft werden kann.
+Meiner Mitwirkungspflicht gemäß § 26 Abs 3 DSG komme ich somit nach.\par
+
+\ifx \zusatzinfo \undefined
+\else
+Als zusätzliche Informationen gebe ich bekannt: \zusatzinfo{}
+\fi
 
 \textbf{Meine Anfrage bezieht sich auf alle Daten zu meiner Person.}\par
 
-Gemäß § 26 Abs. 4 DSG ist die Auskunft innerhalb von acht Wochen nach Einlangen des Begehrens zu erteilen. Die Auskunft ist unentgeltlich zu erteilen, da ich im laufenden Jahr noch kein Auskunftsbegehren an Sie gestellt habe.
+Gemäß § 26 Abs. 4 DSG ist die Auskunft innerhalb von acht Wochen nach Einlangen des Begehrens zu erteilen.
+Die Auskunft ist unentgeltlich zu erteilen, da ich im laufenden Jahr noch kein Auskunftsbegehren an Sie gestellt habe.
 
 \closing{Mit freundlichen Grüßen}
 
 %\ps{PS:}
-\encl{Kopie meines \ausweis}
+\encl{Kopie meines \ausweis{}}
 %\cc{}
 
 \end{letter}
