@@ -10,18 +10,17 @@ use Ramsey\Uuid\Uuid;
 
 class GenerationController extends Controller
 {
-    private $allDatasets;
-    private $statistik;
     private $error; // Die Variable wird true wenn pro Nutzer ein kritischer Fehler auftritt aka ein pdf konnte nicht generiert werden oder das zippen hat nicht funktioniert
 
     public function __construct($id, $module, $config = array()) {
-        $this->allDatasets = Auskunft::find()->all();
         parent::__construct($id, $module, $config);
     }
 
     public function actionIndex()
     {
-        foreach ($this->allDatasets as $dataSet) {
+	    $allDatasets = Auskunft::find()->all();
+
+        foreach ($allDatasets as $dataSet) {
         	\Yii::trace("Processing entry for " . $dataSet["email"]);
         	$this->error = false;
 
@@ -33,40 +32,45 @@ class GenerationController extends Controller
 			if (!$this->createFolder($targetFolder)) {
 				\Yii::error("Oh noes! Folder Creation failed");
 				$this->error = true;
-			} else {
-				$dataSet["idType"] = IdTypes::findOne(["id" => $dataSet["idType"]])["nameForText"];
+				continue;
+			}
 
-				foreach ($targets as $target) {
-					\Yii::info("Target: " . $target);
-					$this->saveStats($target);
-					if (!$this->generatePdf(Adressdaten::findOne(["id" => $target]), $dataSet, $targetFolder)) {
-						\Yii::error("Oh noes! PDF Creation failed");
-						$this->error = true;
-					}
-				}
+			$dataSet["idType"] = IdTypes::findOne(["id" => $dataSet["idType"]])["nameForText"];
 
-				// Die Logdateien sollen nur gelöscht und die Erinnerungen nur gespeichert werden wenn die pdf generierung erfolgreich war.
-				if (!$this->error) {
-					\Yii::trace("Deleting log files from generation");
-					$this->deleteTempFiles($targetFolder);
-
-					// Wenn das zip nicht erstellt werden konnte ist das ein fehler
-					if (!$this->generateZipFile($targetFolder)) {
-						\Yii::error("Oh noes! ZIP Creation failed");
-						$this->error = true;
-					}
-				}
-
-				// Wenn bis jetzt alles gut war können wir die Erinnerung speichern und die Email verschicken :)
-				if (!$this->error) {
-					if($dataSet["reminder"]) {
-						$this->addReminder($dataSet["email"], $dataSet["targets"]);
-					}
-
-					$this->sendDownloadEmail($targetFolderHash, $dataSet["email"]);
-					$dataSet->delete();
+			foreach ($targets as $target) {
+				\Yii::info("Target: " . $target);
+				$this->saveStats($target);
+				if (!$this->generatePdf(Adressdaten::findOne(["id" => $target]), $dataSet, $targetFolder)) {
+					\Yii::error("Oh noes! PDF Creation failed");
+					$this->error = true;
 				}
 			}
+
+			// Die Logdateien sollen nur gelöscht und die Erinnerungen nur gespeichert werden wenn die pdf generierung erfolgreich war.
+			if (!$this->error) {
+				\Yii::trace("Deleting log files from generation");
+				$this->deleteTempFiles($targetFolder);
+			}
+
+	        // Wenn das zip nicht erstellt werden konnte ist das ein fehler
+	        if (!$this->generateZipFile($targetFolder)) {
+		        \Yii::error("Oh noes! ZIP Creation failed");
+		        $this->error = true;
+		        continue;
+	        }
+
+			// Wenn bis jetzt alles gut war können wir die Erinnerung speichern und die Email verschicken :)
+			if($dataSet["reminder"]) {
+				$this->addReminder($dataSet["email"], $dataSet["targets"]);
+			}
+
+			$this->sendDownloadEmail($targetFolderHash, $dataSet["email"]);
+
+//			try {
+//				$dataSet->delete();
+//			} catch (\Exception $e) {
+//				\Yii::error("Could not delete entry: " . $e);
+//			}
         }
     }
 
@@ -87,12 +91,12 @@ class GenerationController extends Controller
 
 	private function saveStats($target) {
 		\Yii::info("Saving Statistik");
-		$this->statistik = new Statistik();
+		$statistik = new Statistik();
 		$targetEntry = Statistik::findOne(["identifier" => $target]);
 		if (!$targetEntry) {
-			$this->statistik->identifier = $target;
-			$this->statistik->counter = 1;
-			$this->statistik->save();
+			$statistik->identifier = $target;
+			$statistik->counter = 1;
+			$statistik->save();
 		} else {
 			$targetEntry->counter++;
 			$targetEntry->save();
@@ -107,6 +111,7 @@ class GenerationController extends Controller
 		if ($targetFolder) {
 			foreach ($extensionsToDelete as $extension) {
 				foreach( glob($targetFolder . "/*." . $extension) as $file ) {
+					\Yii::trace("Deleting file: " . $file);
 					unlink($file);
 				}
 			}
@@ -128,6 +133,7 @@ class GenerationController extends Controller
 
 	private function generateZipFile ($path) {
     	$zipFile = $path . "/download.zip";
+		\Yii::trace("Adding file to zip: " . $zipFile);
 
     	try {
 			$zip = new \ZipArchive();
@@ -141,6 +147,7 @@ class GenerationController extends Controller
     	if (file_exists($zipFile)) {
 			if ($path) {
 				foreach( glob($path . "/*.pdf") as $file ) {
+					\Yii::trace("Deleting file: " . $file);
 					unlink($file);
 				}
 			}
@@ -218,11 +225,15 @@ class GenerationController extends Controller
 
 		$template = str_replace("@@url@@", $downloadUrl, $template);
 
-		\Yii::$app->mailer->compose()
+		\Yii::trace("Mail to: " . $email);
+
+		$mailStatus = \Yii::$app->mailer->compose()
 			->setFrom(\Yii::$app->params["email_from"])
 			->setTo($email)
 			->setSubject("Deine Datenauskunftsbegehren stehen zum Download bereit!")
 			->setTextBody($template)
 			->send();
+
+		\Yii::trace("Email status: " . $mailStatus);
 	}
 }
