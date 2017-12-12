@@ -1,6 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 use yii\helpers\Url;
+$this->title = "Download";
 ?>
 <h1>auskunft/download</h1>
 <p>
