@@ -5,6 +5,8 @@ use Yii;
 use app\models\Auskunft;
 use app\models\Adressdaten;
 use app\models\IdTypes;
+use yii\helpers\ArrayHelper;
+
 
 class AuskunftController extends \yii\web\Controller
 {
@@ -12,7 +14,11 @@ class AuskunftController extends \yii\web\Controller
     {
         $model = new Auskunft();
         $idTypes = IdTypes::find()->all();
-        $adressdaten = Adressdaten::find()->all();
+
+        $branchen = Adressdaten::find()->select(["branche"])->groupBy("branche")->asArray()->all();
+        $ziele = Adressdaten::find()->select(["id", "typ", "branche", "name", "stadt"])->orderBy("branche")->addOrderBy("typ")->addOrderBy("name")->asArray()->all();
+
+//        $adressdaten = Adressdaten::find()->all();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
@@ -28,7 +34,8 @@ class AuskunftController extends \yii\web\Controller
         return $this->render('daten', [
             'model' => $model,
             'idTypes' => $idTypes,
-            'adressdaten' => $adressdaten
+            'branchen' => $branchen,
+            'ziele' => $ziele
         ]);
     }
 

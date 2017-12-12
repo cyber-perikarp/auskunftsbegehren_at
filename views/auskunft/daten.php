@@ -25,8 +25,35 @@ $this->title = "Generieren";
         <?= $form->field($model, 'email') ?>
         <?= $form->field($model, 'reminder')->checkbox() ?>
 
-        <?= $form->field($model, 'targets')->checkboxList(ArrayHelper::map($adressdaten, 'id', 'name')); ?>
-    
+
+    <table>
+    <?php
+    foreach ($branchen as $branche) {
+	    echo "<tr><td></td><td><h2>" . $branche["branche"] . "</h2></td><td></td><td></td></tr>";
+	    foreach ($ziele as $ziel) {
+		    if($ziel["branche"] == $branche["branche"]) {
+			    echo '
+                <tr>
+                    <td>
+                        <input type="checkbox" name="Auskunft[targets][]" value="' . $ziel["id"] . '" id="' . $ziel["id"] . '">
+                    </td>
+                   
+                    <td>
+                         <label for="' . $ziel["id"] . '">' . $ziel["typ"] . '</label>
+                    </td>
+                    <td>
+                         <label for="' . $ziel["id"] . '">' . $ziel["name"] . '</label>
+                    </td>
+                    <td>
+                         <label for="' . $ziel["id"] . '">' . $ziel["stadt"] . '</label>
+                    </td>
+                    </tr>';
+		    }
+	    }
+    }
+    ?>
+</table>
+
         <div class="form-group">
             <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
         </div>
