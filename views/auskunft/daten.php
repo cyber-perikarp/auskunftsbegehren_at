@@ -26,7 +26,7 @@ $this->title = "Generieren";
         <?= $form->field($model, 'reminder')->checkbox() ?>
 
 
-    <table>
+	<table class="table table-striped table-responsive">
         <?php
         foreach ($branchen as $branche) {
             echo "<tr><td></td><td><h2>" . $branche["branche"] . "</h2></td><td></td><td></td></tr>";
