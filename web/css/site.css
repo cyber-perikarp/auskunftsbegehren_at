@@ -3,6 +3,19 @@ body {
     height: 100%;
 }
 
+#ziele label {
+    font-weight: normal;
+}
+
+#ziele a:hover, #ziele a:active {
+    text-decoration: none;
+}
+
+div.required label.control-label:after {
+    content: " *";
+    color: red;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;

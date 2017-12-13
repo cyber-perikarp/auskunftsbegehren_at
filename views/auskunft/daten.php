@@ -11,7 +11,7 @@ use yii\bootstrap\ActiveForm;
 $this->title = "Generieren";
 ?>
 <div class="auskunft-daten">
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 
         <?= $form->field($model, 'firstName') ?>
         <?= $form->field($model, 'lastName') ?>
@@ -26,33 +26,70 @@ $this->title = "Generieren";
         <?= $form->field($model, 'reminder')->checkbox() ?>
 
 
-	<table class="table table-striped table-responsive">
+
         <?php
-        foreach ($branchen as $branche) {
-            echo "<tr><td></td><td><h2>" . $branche["branche"] . "</h2></td><td></td><td></td></tr>";
-            foreach ($ziele as $ziel) {
-                if($ziel["branche"] == $branche["branche"]) {
-                    echo '
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="Auskunft[targets][]" value="' . $ziel["id"] . '" id="' . $ziel["id"] . '">
-                        </td>
-                       
-                        <td>
-                             <label for="' . $ziel["id"] . '">' . $ziel["typ"] . '</label>
-                        </td>
-                        <td>
-                             <label for="' . $ziel["id"] . '">' . $ziel["name"] . '</label>
-                        </td>
-                        <td>
-                             <label for="' . $ziel["id"] . '">' . $ziel["stadt"] . '</label>
-                        </td>
-                        </tr>';
-                }
-            }
+		$i=0;
+        foreach ($branchen as $branche) { ?>
+			<div id="ziele" role="tablist">
+				<div class="card">
+					<div class="card-body">
+						<div class="card-header" role="tab" id="category<?php echo $i; ?>">
+							<h2 class="mb-0 card-title">
+								<a data-toggle="collapse" href="#collapse<?php echo $i; ?>" aria-expanded="false" aria-controls="collapse<?php echo $i; ?>">
+									<?php echo($branche["branche"]); ?>
+								</a>
+							</h2>
+						</div>
+						<div id="collapse<?php echo $i; ?>" class="collapse list-of-targets" role="tabpanel" aria-labelledby="category<?php echo $i; ?>" data-parent="#ziele">
+							<div class="card-text">
+								<table class="table table-striped table-responsive">
+									<tr>
+										<th>
+
+										</th>
+										<th>
+											Typ
+										</th>
+										<th>
+											Name
+										</th>
+										<th>
+											Ort
+										</th>
+									</tr>
+
+									<?php foreach ($ziele as $ziel) {
+										if($ziel["branche"] == $branche["branche"]) { ?>
+										<tr>
+											<td>
+												<input type="checkbox" name="Auskunft[targets][]" value="<?php echo($ziel["id"]); ?>" id="<?php echo($ziel["id"]); ?>">
+											</td>
+
+											<td>
+												 <label for="<?php echo($ziel["id"]); ?>"><?php echo($ziel["typ"]); ?></label>
+											</td>
+											<td>
+												 <label for="<?php echo($ziel["id"]); ?>"><?php echo($ziel["name"]); ?></label>
+											</td>
+											<td>
+												 <label for="<?php echo($ziel["id"]); ?>"><?php echo($ziel["stadt"]); ?>, <?php echo($ziel["bundesland"]); ?></label>
+											</td>
+										</tr>
+										<?php
+										}
+									}
+								?>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php
+			$i++;
         }
         ?>
-    </table>
+
 
         <div class="form-group">
             <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
@@ -60,3 +97,4 @@ $this->title = "Generieren";
     <?php ActiveForm::end(); ?>
 
 </div><!-- auskunft-daten -->
+
