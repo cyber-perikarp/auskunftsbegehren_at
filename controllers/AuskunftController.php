@@ -5,8 +5,6 @@ use Yii;
 use app\models\Auskunft;
 use app\models\Adressdaten;
 use app\models\IdTypes;
-use yii\helpers\ArrayHelper;
-
 
 class AuskunftController extends \yii\web\Controller
 {
@@ -39,7 +37,7 @@ class AuskunftController extends \yii\web\Controller
 
 	public function actionSucess()
 	{
-		return $this->render('sucess');
+		return $this->render('auskunft/sucess');
 	}
 
 	public function actionDownload($id)
@@ -50,7 +48,7 @@ class AuskunftController extends \yii\web\Controller
 			throw new \yii\web\NotFoundHttpException("Link abgelaufen.");
 		}
 
-		return $this->render('download', [
+		return $this->render('auskunft/download', [
 			'id' => $id,
 			'path' => $path
 		]);
@@ -58,7 +56,9 @@ class AuskunftController extends \yii\web\Controller
 
 	public function actionDownloadstart($id) {
 		$path = $this->buildPath($id);
-		Yii::$app->response->sendFile($path, "auskunftsbegehren.zip", array("mimeType" => "application/zip", "inline" => false));
+		if (file_exists($path)) {
+			Yii::$app->response->sendFile($path, "auskunftsbegehren.zip", array("mimeType" => "application/zip", "inline" => false));
+		}
 	}
 
 	private function buildPath ($id) {
