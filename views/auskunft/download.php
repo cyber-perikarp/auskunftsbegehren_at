@@ -8,5 +8,9 @@ $this->title = "Download";
     Yay, Drück auf download!
 </p>
 <p>
-    <a href="<?php echo(Url::to(['auskunft/downloadstart', 'id' => $id])); ?>"><button type="button" class="btn btn-primary">Download</button></a>
+    <a href="<?= Url::to(['auskunft/downloadstart', 'id' => $id]); ?>">
+		<button type="button" class="btn btn-primary">
+			Download
+		</button>
+	</a>
 </p>

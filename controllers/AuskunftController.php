@@ -22,7 +22,7 @@ class AuskunftController extends \yii\web\Controller
 	            $model->targets = json_encode($model->targets);
 
 	            if ($model->save()) {
-		            return $this->redirect('auskunft/success');
+					return $this->render('success');
 	            }
             }
         }
@@ -35,11 +35,6 @@ class AuskunftController extends \yii\web\Controller
         ]);
     }
 
-	public function actionSucess()
-	{
-		return $this->render('auskunft/sucess');
-	}
-
 	public function actionDownload($id)
 	{
 		$path = $this->buildPath($id);
@@ -48,9 +43,8 @@ class AuskunftController extends \yii\web\Controller
 			throw new \yii\web\NotFoundHttpException("Link abgelaufen.");
 		}
 
-		return $this->render('auskunft/download', [
-			'id' => $id,
-			'path' => $path
+		return $this->render('download', [
+			'id' => $id
 		]);
 	}
 
