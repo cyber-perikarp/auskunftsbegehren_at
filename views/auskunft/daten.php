@@ -16,7 +16,7 @@ $this->title = "Generieren";
 		'layout' => 'horizontal',
 		'fieldConfig' => [
 			'options' => [
-				'tag' => false,
+//				'tag' => false,
 			],
 		],
 	]);
@@ -89,6 +89,12 @@ $this->title = "Generieren";
 									<th>
 
 									</th>
+                                    <th>
+                                        Fax
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
 									<th>
 										Typ
 									</th>
@@ -106,7 +112,24 @@ $this->title = "Generieren";
 										<td>
 											<input type="checkbox" name="Auskunft[targets][]" value="<?= $ziel["id"]; ?>" id="<?= $ziel["id"]; ?>">
 										</td>
-
+                                        <?php if ($ziel["fax"]): ?>
+                                            <td>
+                                                <i class="fa fa-check has-contact-type"></i>
+                                            </td>
+                                        <?php else: ?>
+                                            <td>
+                                                <i class="fa fa-times hasnt-contact-type"></i>
+                                            </td>
+                                        <?php endif; ?>
+                                        <?php if ($ziel["email"]): ?>
+                                            <td>
+                                                <i class="fa fa-check has-contact-type"></i>
+                                            </td>
+                                        <?php else: ?>
+                                            <td>
+                                                <i class="fa fa-times hasnt-contact-type"></i>
+                                            </td>
+                                        <?php endif; ?>
 										<td>
 											 <label for="<?= $ziel["id"]; ?>"><?= $ziel["typ"]; ?></label>
 										</td>

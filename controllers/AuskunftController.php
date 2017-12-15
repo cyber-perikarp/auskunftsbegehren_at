@@ -16,9 +16,7 @@ class AuskunftController extends \yii\web\Controller
         $idTypes = IdTypes::find()->all();
 
         $branchen = Adressdaten::find()->select(["branche"])->groupBy("branche")->asArray()->all();
-        $ziele = Adressdaten::find()->select(["id", "typ", "branche", "name", "stadt", "bundesland"])->orderBy("branche")->addOrderBy("typ")->addOrderBy("name")->asArray()->all();
-
-//        $adressdaten = Adressdaten::find()->all();
+        $ziele = Adressdaten::find()->select(["id", "typ", "branche", "name", "stadt", "bundesland", "email", "fax"])->orderBy("branche")->addOrderBy("typ")->addOrderBy("name")->asArray()->all();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {

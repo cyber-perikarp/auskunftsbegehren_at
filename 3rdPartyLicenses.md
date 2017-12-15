@@ -994,3 +994,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+## Font Awesome
+### Icons
+In the Font Awesome Free download, the CC BY 4.0 license applies to all icons packaged as .svg and .js files types.
+
+### Fonts
+In the Font Awesome Free download, the SIL OLF license applies to all icons packaged as web and desktop font files.
+
+### Codese
+In the Font Awesome Free download, the MIT license applies to all non-font and non-icon files.

@@ -14,8 +14,8 @@ class Auskunft extends BaseModel {
     public function rules()
     {
         return [
-            [['firstName', 'lastName', 'street', 'streetNumber', 'zip', 'city', 'email'], 'required'],
-            [['additional'], 'string', 'max' => 256],
+            [['firstName', 'lastName', 'street', 'streetNumber', 'zip', 'city', 'email'], 'required', 'message' => 'Dieses Feld ist ein Pflichtfeld.'],
+            [['additional'], 'string', 'max' => 256, 'message' => 'Bitte geben Sie nicht mehr als 256 Zeichen ein.'],
             [['idType'], 'exist', 'targetAttribute' => 'id', 'targetClass' => IdTypes::className()],
             [['email'], 'email'],
             [['reminder'], 'default', 'value' => false],
