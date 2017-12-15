@@ -35,6 +35,7 @@ $config = [
                 ],
             ],
         ],
+        'view' => 'app\components\View',
         'db' => $db,
 		'mailer' => $mail,
         'urlManager' => [
@@ -44,27 +45,46 @@ $config = [
       				'' => 'site/index',
       				'<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
       				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                [
+                    'pattern' => 'js/<action>/<hash>',
+                    'route' => 'js/<action>',
+                    'suffix' => '.js',
+                ],
 			],
+        ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'js'=>[]
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js'=>[]
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [],
+                ],
+
+            ],
         ],
     ],
     'params' => $params,
 ];
 
-if ($dev) {
-    // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
-    ];
-
-    $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
-    ];
-}
+//if ($dev) {
+//    // configuration adjustments for 'dev' environment
+//    $config['bootstrap'][] = 'debug';
+//    $config['modules']['debug'] = [
+//        'class' => 'yii\debug\Module',
+//        // uncomment the following to add your IP if you are not connecting from localhost.
+//        //'allowedIPs' => ['127.0.0.1', '::1'],
+//    ];
+//
+//    $config['bootstrap'][] = 'gii';
+//    $config['modules']['gii'] = [
+//        'class' => 'yii\gii\Module',
+//        // uncomment the following to add your IP if you are not connecting from localhost.
+//        //'allowedIPs' => ['127.0.0.1', '::1'],
+//    ];
+//}
 
 return $config;
