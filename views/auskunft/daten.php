@@ -10,6 +10,9 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = "Generieren";
 ?>
+<h1>
+	Start
+</h1>
 <div class="auskunft-daten">
     <?php
 	$form = ActiveForm::begin([
@@ -21,68 +24,69 @@ $this->title = "Generieren";
 		],
 	]);
 	?>
-	<div class="form-row">
-		<div class="form-group col-md-6">
-        	<?= $form->field($model, 'firstName') ?>
+	<div class="form-fields container"><!-- Form fields start here -->
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<?= $form->field($model, 'firstName') ?>
+			</div>
+			<div class="form-group col-md-6">
+				<?= $form->field($model, 'lastName') ?>
+			</div>
 		</div>
-		<div class="form-group col-md-6">
-        	<?= $form->field($model, 'lastName') ?>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<?= $form->field($model, 'street') ?>
+			</div>
+			<div class="form-group col-md-6">
+				<?= $form->field($model, 'streetNumber') ?>
+			</div>
 		</div>
-	</div>
-	<div class="form-row">
-		<div class="form-group col-md-6">
-			<?= $form->field($model, 'street') ?>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<?= $form->field($model, 'zip') ?>
+			</div>
+			<div class="form-group col-md-6">
+				<?= $form->field($model, 'city') ?>
+			</div>
 		</div>
-		<div class="form-group col-md-6">
-			<?= $form->field($model, 'streetNumber') ?>
+		<div class="form-row">
+			<div class="form-group col-md-12">
+				<?= $form->field($model, 'idType')->dropDownList(ArrayHelper::map($idTypes, 'id', 'name')); ?>
+			</div>
 		</div>
-	</div>
-	<div class="form-row">
-		<div class="form-group col-md-6">
-			<?= $form->field($model, 'zip') ?>
+		<div class="form-row">
+			<div class="form-group col-md-12">
+				<?= $form->field($model, 'additional')->textarea() ?>
+			</div>
 		</div>
-		<div class="form-group col-md-6">
-			<?= $form->field($model, 'city') ?>
+		<div class="form-row">
+			<div class="form-group col-md-12">
+				<?= $form->field($model, 'email') ?>
+			</div>
 		</div>
-	</div>
-	<div class="form-row">
-		<div class="form-group col-md-12">
-			<?= $form->field($model, 'idType')->dropDownList(ArrayHelper::map($idTypes, 'id', 'name')); ?>
+		<div class="form-row">
+			<div class="form-group col-md-12">
+				<?= $form->field($model, 'reminder')->checkbox()->label("Ich möchte nach Ablauf der Frist erinnert werden") ?>
+			</div>
 		</div>
-	</div>
-	<div class="form-row">
-		<div class="form-group col-md-12">
-			<?= $form->field($model, 'additional')->textarea() ?>
-		</div>
-	</div>
-	<div class="form-row">
-		<div class="form-group col-md-12">
-			<?= $form->field($model, 'email') ?>
-		</div>
-	</div>
-	<div class="form-row">
-		<div class="form-group col-md-12">
-			<?= $form->field($model, 'reminder')->checkbox()->label("Ich möchte nach Ablauf der Frist erinnert werden") ?>
+	</div><!-- Form fields end here -->
 
-		</div>
-	</div>
-
-	<div id="ziele" role="tablist">
+	<div id="ziele">
 		<?php
 		$i=0;
 		foreach ($branchen as $branche):
 			$i++;
 		?>
-			<div class="category">
-				<div class="category-header" role="tab" id="category<?= $i; ?>">
-					<h2 class="mb-0 category-title">
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="category<?= $i; ?>">
+					<h2 class="panel-title">
 						<a data-toggle="collapse" href="#collapse<?= $i; ?>" aria-expanded="false" aria-controls="collapse<?= $i; ?>">
 							<?= $branche["branche"]; ?>
 							<span class="badge"><?= app\models\Adressdaten::find()->where(["branche" => $branche])->select(["id"])->count(); ?></span>
 						</a>
 					</h2>
 				</div>
-				<div id="collapse<?= $i; ?>" class="collapse list-of-targets" role="tabpanel" aria-labelledby="category<?= $i; ?>" data-parent="#ziele">
+				<div id="collapse<?= $i; ?>" class="collapse list-of-targets panel-body" aria-labelledby="category<?= $i; ?>" data-parent="#ziele">
 					<div class="card-text">
 						<table class="table table-striped table-responsive">
 							<tr>
