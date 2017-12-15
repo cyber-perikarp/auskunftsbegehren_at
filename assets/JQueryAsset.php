@@ -8,6 +8,7 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use yii\web\View;
 
 /**
  * Main application asset bundle.
@@ -15,20 +16,14 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class AppAsset extends AssetBundle
+class JQueryAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
-    public $css = [
-        'css/bootstrap.min.css',
-        'css/site.css',
-    ];
+    public function init() {
+        $this->jsOptions['position'] = View::POS_BEGIN;
+        parent::init();
+    }
 
     public $js = [
-        'js/bootstrap.min.js'
-    ];
-    public $depends = [
-        'app\assets\JQueryAsset',
-        'yii\web\YiiAsset'
+        'js/jquery-3.2.1.min.js'
     ];
 }
