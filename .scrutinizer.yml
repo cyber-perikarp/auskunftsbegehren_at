@@ -1,30 +1,31 @@
 imports:
-    - php
+  - php
 
 tools:
-    external_code_coverage:
-        timeout: 2100 # Timeout in seconds.
-    # disable copy paste detector and similarity analyzer as they have no real value
-    # and a huge bunch of false-positives
-    php_sim: false
-    php_cpd: false
+  external_code_coverage:
+    timeout: 2100 # Timeout in seconds.
+  # disable copy paste detector and similarity analyzer as they have no real value
+  # and a huge bunch of false-positives
+  php_sim: false
+  php_cpd: false
 
 filter:
-    excluded_paths:
-        - 'tests/*'
-        - 'vendor/*'
+  excluded_paths:
+    - 'tests/*'
+    - 'vendor/*'
+    - 'web/js/jquery-*'
 
 checks:
-    php: true
-    javascript: true
+  php: true
+  javascript: true
 
 build:
-    environment:
-        php: '7.1.6'
-    tests:
-        override:
-            -
-                command: 'vendor/bin/phpunit --coverage-clover=codecoverage'
-                coverage:
-                    file: 'codecoverage'
-                    format: 'clover'
+  environment:
+    php: '7.1.6'
+  tests:
+    override:
+      -
+        command: 'vendor/bin/phpunit --coverage-clover=codecoverage'
+        coverage:
+          file: 'codecoverage'
+          format: 'clover'
