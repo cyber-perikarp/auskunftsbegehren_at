@@ -14,8 +14,8 @@ class m171215_221813_add_generated_table extends Migration
 	{
 		$this->createTable("generated", [
 			"id" => $this->string(128)->notNull(),
-			"generated_at" => $this->date()->notNull(),
-			"todelete_at" => $this->date()->notNull(),
+			"generated_at" => $this->dateTime()->notNull(),
+			"todelete_at" => $this->dateTime()->notNull(),
 			"linkopened" => $this->boolean()->defaultValue(false)
 		]);
     }

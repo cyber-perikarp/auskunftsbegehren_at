@@ -6,17 +6,20 @@ use app\models\Auskunft;
 use app\models\Reminders;
 use app\models\Adressdaten;
 use app\models\Statistik;
+use app\models\Generated;
 use Ramsey\Uuid\Uuid;
 
 class GenerationController extends Controller
 {
     private $error; // Die Variable wird true wenn pro Nutzer ein kritischer Fehler auftritt aka ein pdf konnte nicht generiert werden oder das zippen hat nicht funktioniert
+	private $now;
 
-    public function __construct($id, $module, $config = array()) {
-        parent::__construct($id, $module, $config);
-    }
+	public function __construct(string $id, Module $module, array $config = []) {
+		$this->now = new \DateTime();
+		parent::__construct($id, $module, $config);
+	}
 
-    public function actionIndex()
+	public function actionIndex()
     {
 	    $allDatasets = Auskunft::find()->all();
 
@@ -59,6 +62,8 @@ class GenerationController extends Controller
 		        continue;
 	        }
 
+	        $this->addGeneratedDate($targetFolderHash);
+
 			// Wenn bis jetzt alles gut war können wir die Erinnerung speichern und die Email verschicken :)
 			if($dataSet["reminder"]) {
 				$this->addReminder($dataSet["email"], $dataSet["targets"]);
@@ -74,13 +79,24 @@ class GenerationController extends Controller
         }
     }
 
+    private function addGeneratedDate ($id) {
+		$model = new Generated();
+
+		$model->id = $id;
+		$model->generated_at = $this->now->format("Y-m-d H:i:s");
+		$model->todelete_at = $this->now->add(
+			\DateInterval::createFromDateString("72h")
+		)->format("Y-m-d"); // + 72 Stunden
+
+	}
+
 	private function addReminder($email, $targets) {
 		\Yii::info("Adding Reminder");
-    	$now = new \DateTime();
     	$reminder = new Reminders();
 
-    	$reminder->created_at = $now->format("Y-m-d");
-    	$reminder->due_at = $now->add(
+		$reminder->created_at = $this->now->format("Y-m-d");;
+
+		$reminder->due_at = $this->now->add(
 		    \DateInterval::createFromDateString(\Yii::$app->params["frist"] . " weeks")
 	    )->format("Y-m-d"); // Wochen dazu laut config
 
