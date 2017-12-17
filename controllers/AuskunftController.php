@@ -5,6 +5,7 @@ use Yii;
 use app\models\Auskunft;
 use app\models\Adressdaten;
 use app\models\IdTypes;
+use app\models\Generated;
 
 class AuskunftController extends \yii\web\Controller
 {
@@ -42,6 +43,10 @@ class AuskunftController extends \yii\web\Controller
 		if (!file_exists($path)) {
 			throw new \yii\web\NotFoundHttpException("Link abgelaufen.");
 		}
+
+		$generated = Generated::findOne(["id" => $id]);
+		$generated->linkopened = true;
+		$generated->save();
 
 		return $this->render('download', [
 			'id' => $id
