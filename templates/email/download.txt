@@ -1,5 +1,6 @@
 Hallo!
 Deine genierierten Auskunftsbegehren stehen unter @@url@@ bereit. Du hast 72 Stunden Zeit, das Archiv herunterzuladen, bevor es gelöscht wird.
+Achtung! Wenn du den Link anklickst, werden die Daten ebenfalls innerhalb von 15 Minuten gelöscht!
 
 Danke, dass Du unseren Dienst benutzt hast!
 Dein Team von auskunftsbegehren.at
