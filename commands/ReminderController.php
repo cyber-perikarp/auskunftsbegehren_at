@@ -20,11 +20,14 @@ class ReminderController extends Controller
 			$targets = json_decode($dueToday["targets"]);
 			$this->sendReminder($dueToday["created_at"], $targets, $dueToday["email"]);
 
-//			try {
-//				$targets->delete();
-//			} catch (\Exception $e) {
-//				\Yii::error("Could not delete entry: " . $e);
-//			}
+			// Wenn wir nicht im dev modus sind lösche den Datensatz
+			if (!\Yii::$app->params["cli_dev"]) {
+				try {
+					$targets->delete();
+				} catch (\Exception $e) {
+					\Yii::error("Could not delete entry: " . $e);
+				}
+			}
 		}
 	}
 

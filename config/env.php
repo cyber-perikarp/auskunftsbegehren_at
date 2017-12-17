@@ -13,4 +13,5 @@ return [
 	"EMAIL_SERVER" => Config::env("EMAIL_SERVER"),
     "SALT" => Config::env("SALT"),
 	"HOST" => Config::env("HOST"),
+	"CLI_DEV" => Config::env("CLI_DEV")
 ];

@@ -10,5 +10,6 @@ return [
 	"email_from" => $env["EMAIL_FROM"],
 	"email_server" => $env["EMAIL_SERVER"],
 	"email_username" => $env["EMAIL_USERNAME"],
-	"email_password" => $env["EMAIL_PASSWORD"]
+	"email_password" => $env["EMAIL_PASSWORD"],
+	"cli_dev" => $env["CLI_DEV"]
 ];

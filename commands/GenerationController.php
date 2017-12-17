@@ -71,11 +71,14 @@ class GenerationController extends Controller
 
 			$this->sendDownloadEmail($targetFolderHash, $dataSet["email"]);
 
-//			try {
-//				$dataSet->delete();
-//			} catch (\Exception $e) {
-//				\Yii::error("Could not delete entry: " . $e);
-//			}
+			// Wenn wir nicht im dev modus sind lösche den Datensatz
+			if (!\Yii::$app->params["cli_dev"]) {
+				try {
+					$dataSet->delete();
+				} catch (\Exception $e) {
+					\Yii::error("Could not delete entry: " . $e);
+				}
+			}
         }
     }
 
