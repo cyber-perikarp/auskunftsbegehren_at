@@ -49,13 +49,4 @@ class Reminders extends BaseModel
             'due_at' => 'Due At',
         ];
     }
-
-    /**
-     * @inheritdoc
-     * @return RemindersQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new RemindersQuery(get_called_class());
-    }
 }

@@ -1,5 +1,5 @@
 Hallo!
-Am @@datum@@ hast Du von folgenden Stellen über unseren Dienst gemäß dem DSG 2000 Auskunft über die zu Deiner Person verarbeiteten Daten verlangt.
+Am @@datum@@ hast Du von folgenden Stellen über unseren Dienst gemäß dem DSG 2000 Auskunft über die zu Deiner Person verarbeiteten Daten verlangt:
 @@ziele@@
 
 Das Gesetz sieht eine Frist von 8 Wochen vor, in denen diese Anfragen beantwortet sein müssen. Diese Frist ist heute abgelaufen.
