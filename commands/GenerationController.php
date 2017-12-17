@@ -14,7 +14,7 @@ class GenerationController extends Controller
     private $error; // Die Variable wird true wenn pro Nutzer ein kritischer Fehler auftritt aka ein pdf konnte nicht generiert werden oder das zippen hat nicht funktioniert
 	private $now;
 
-	public function __construct(string $id, Module $module, array $config = []) {
+	public function __construct(string $id, $module, array $config = []) {
 		$this->now = new \DateTime();
 		parent::__construct($id, $module, $config);
 	}
@@ -85,8 +85,12 @@ class GenerationController extends Controller
 		$model->id = $id;
 		$model->generated_at = $this->now->format("Y-m-d H:i:s");
 		$model->todelete_at = $this->now->add(
-			\DateInterval::createFromDateString("72h")
-		)->format("Y-m-d"); // + 72 Stunden
+			\DateInterval::createFromDateString("72 hours")
+		)->format("Y-m-d H:i:s"); // + 72 Stunden
+
+		\Yii::info("This record is going to be deleted at: " . $model->todelete_at);
+
+		$model->save();
 
 	}
 
