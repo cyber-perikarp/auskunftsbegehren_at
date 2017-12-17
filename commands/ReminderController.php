@@ -19,6 +19,12 @@ class ReminderController extends Controller
 		foreach ($dueTodayAll as $dueToday) {
 			$targets = json_decode($dueToday["targets"]);
 			$this->sendReminder($dueToday["created_at"], $targets, $dueToday["email"]);
+
+//			try {
+//				$targets->delete();
+//			} catch (\Exception $e) {
+//				\Yii::error("Could not delete entry: " . $e);
+//			}
 		}
 	}
 
