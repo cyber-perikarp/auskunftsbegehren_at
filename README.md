@@ -13,3 +13,10 @@ Zugehörige Projekte:
 * [Webseite](https://github.com/cyber-perikarp/auskunftsbegehren_at) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 * [Serverkonfiguration](https://github.com/cyber-perikarp/auskunftsbegehren_at_serverconfig) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 * [Adressdaten](https://github.com/cyber-perikarp/auskunftsbegehren_at_adressen) [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+
+## Initales Aufsetzen
+1. Repo clonen
+2. Webserver einrichten
+3. .env-sample nach .env kopieren und anpassen
+4. php yii migrate ausführen im Projektordner
+5. auskunftsbegehren_at_adressen importieren
