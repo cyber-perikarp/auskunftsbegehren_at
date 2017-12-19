@@ -27,7 +27,7 @@ $this->title = "Generieren";
 	<div class="form-fields container"><!-- Form fields start here -->
 		<div class="form-row">
 			<div class="form-group col-md-6">
-				<?= $form->field($model, 'firstName') ?>
+				<?= $form->field($model, 'firstName')->textInput(['autofocus' => true]) ?>
 			</div>
 			<div class="form-group col-md-6">
 				<?= $form->field($model, 'lastName') ?>
@@ -56,7 +56,7 @@ $this->title = "Generieren";
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-12">
-				<?= $form->field($model, 'additional')->textarea() ?>
+				<?= $form->field($model, 'additional')->textarea()->textarea(['rows' => 6]) ?>
 			</div>
 		</div>
 		<div class="form-row">
