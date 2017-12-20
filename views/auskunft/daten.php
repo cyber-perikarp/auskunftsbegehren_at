@@ -24,41 +24,56 @@ $this->title = "Generieren";
 		],
 	]);
 	?>
-	<div class="form-fields container"><!-- Form fields start here -->
-		<div class="form-row">
-			<div class="form-group col-md-6">
-				<?= $form->field($model, 'firstName')->textInput(['autofocus' => true]) ?>
-			</div>
-			<div class="form-group col-md-6">
-				<?= $form->field($model, 'lastName') ?>
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="form-group col-md-6">
-				<?= $form->field($model, 'street') ?>
-			</div>
-			<div class="form-group col-md-6">
-				<?= $form->field($model, 'streetNumber') ?>
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="form-group col-md-6">
-				<?= $form->field($model, 'zip') ?>
-			</div>
-			<div class="form-group col-md-6">
-				<?= $form->field($model, 'city') ?>
-			</div>
-		</div>
+	<div class="form-fields container">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <?= $form->field($model, 'firstName')->textInput(['autofocus' => true]) ?>
+            </div>
+            <div class="form-group col-md-6">
+                <?= $form->field($model, 'lastName') ?>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <?= $form->field($model, 'street') ?>
+            </div>
+            <div class="form-group col-md-6">
+                <?= $form->field($model, 'streetNumber') ?>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <?= $form->field($model, 'zip') ?>
+            </div>
+            <div class="form-group col-md-6">
+                <?= $form->field($model, 'city') ?>
+            </div>
+        </div>
+        <div class="form-row col-md-12">
+            <p>
+                Diese Daten benötigen wir um deine Adresse auf das Auskunftsbegehren zu schreiben.
+            </p>
+        </div>
 		<div class="form-row">
 			<div class="form-group col-md-12">
 				<?= $form->field($model, 'idType')->dropDownList(ArrayHelper::map($idTypes, 'id', 'name')); ?>
 			</div>
 		</div>
+        <div class="form-row col-md-12">
+            <p>
+                Das Datenschutzgesetz sieht vor, dass der Antragssteller an einem Auskunftsersuchen mitwirken muss, insbesondere dadurch dass er seine Identität nachweist. Eine übliche Maßnahme ist es, eine Kopie eines amtlichen Lichtbildausweises beizulegen.
+            </p>
+        </div>
 		<div class="form-row">
 			<div class="form-group col-md-12">
 				<?= $form->field($model, 'additional')->textarea()->textarea(['rows' => 6]) ?>
 			</div>
 		</div>
+        <div class="form-row col-md-12">
+            <p>
+                Hier kannst du zusätzliche Angaben machen, die den Empfänger deines Auskunftsbegehrens helfen deinen Datensatz zu finden. Zum Beispiel "Meine Kundennummer lautet 1234" oder "Meine Daten sind eventuell auch mit folgenden akademischen Graden vorhanden: XXX"
+            </p>
+        </div>
 		<div class="form-row">
 			<div class="form-group col-md-12">
 				<?= $form->field($model, 'email') ?>
@@ -69,6 +84,12 @@ $this->title = "Generieren";
 				<?= $form->field($model, 'reminder')->checkbox()->label("Ich möchte nach Ablauf der Frist erinnert werden") ?>
 			</div>
 		</div>
+        <div class="form-row col-md-12">
+            <p>
+                Wenn gewünscht, können wir eine Erinnerung nach Ablauf der gesetzlichen Frist (8 Wochen) schicken, um daran zu erinnern, dass eigentlich eine Antwort auf das Auskunftsbegehren eingelangt sein sollte. Dazu brauchen wir eine Mail-Adresse, die hier eingetragen werden kann - diese wird bis zum Erinnerungsmail gespeichert und dann ebenfalls gelöscht.<br>
+                Deine Email Adresse brauchen wir aber auf jeden Fall, weil wir dir den Link zu den Datenauskunftsbegehren dorthin schicken.
+            </p>
+        </div>
 	</div><!-- Form fields end here -->
 
 	<div id="ziele">
