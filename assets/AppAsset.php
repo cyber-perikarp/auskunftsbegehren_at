@@ -26,7 +26,8 @@ class AppAsset extends AssetBundle
     ];
 
     public $js = [
-        'js/bootstrap.min.js'
+        'js/bootstrap.min.js',
+        'js/site.js'
     ];
     public $depends = [
         'app\assets\JQueryAsset',
