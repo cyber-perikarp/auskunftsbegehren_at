@@ -3,7 +3,6 @@
 use yii\helpers\Url;
 $this->title = "Yay!";
 ?>
-<h1>auskunft/success</h1>
 <p>
-	Auskunftsbegehren gespeichert!
+    Gratulation! Deine Auskunftsbegehren werden jetzt generiert und sind dann für 72 Stunden abrufbar. Den Link bekommst du in den nächsten 30 Minuten per Email zugestellt.
 </p>
