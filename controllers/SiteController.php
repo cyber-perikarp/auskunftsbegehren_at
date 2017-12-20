@@ -55,4 +55,9 @@ class SiteController extends Controller
 	{
 		return $this->render('privacy');
 	}
+
+    public function actionFaq()
+    {
+        return $this->render('faq');
+    }
 }

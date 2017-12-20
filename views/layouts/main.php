@@ -39,6 +39,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Startseite', 'url' => ['/site/index']],
+            ['label' => 'FAQ', 'url' => ['/site/faq']],
             ['label' => 'Auskunft verlangen!', 'url' => ['/auskunft/index']],
             ['label' => 'Kontakt', 'url' => ['/site/contact']]
         ],
