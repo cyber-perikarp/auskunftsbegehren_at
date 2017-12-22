@@ -93,3 +93,13 @@ div.required label.control-label:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+.form-row {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.form-row .form-group {
+    display: inline-block;
+}
