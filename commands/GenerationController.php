@@ -1,6 +1,7 @@
 <?php
 namespace app\commands;
 use app\models\IdTypes;
+use function var_dump;
 use yii\console\Controller;
 use app\models\Auskunft;
 use app\models\Reminders;
@@ -24,11 +25,15 @@ class GenerationController extends Controller
 	    $allDatasets = Auskunft::find()->all();
 
         foreach ($allDatasets as $dataSet) {
-            foreach ($dataSet as $key => $value) {
-                $dataSet[$key] = $this->latexEscape($value);
-            }
+            $dataSet["firstName"] = $this->latexEscape($dataSet["firstName"]);
+            $dataSet["lastName"] = $this->latexEscape($dataSet["lastName"]);
+            $dataSet["street"] = $this->latexEscape($dataSet["street"]);
+            $dataSet["zip"] = $this->latexEscape($dataSet["zip"]);
+            $dataSet["city"] = $this->latexEscape($dataSet["city"]);
+            $dataSet["email"] = $this->latexEscape($dataSet["email"]);
+            $dataSet["additional"] = $this->latexEscape($dataSet["additional"]);
 
-        	\Yii::trace("Processing entry for " . $dataSet["email"]);
+            \Yii::trace("Processing entry for " . $dataSet["email"]);
         	$this->error = false;
 
         	$targets = json_decode($dataSet["targets"]);
