@@ -20,6 +20,7 @@
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
 \usepackage{textcomp}
+\usepackage{t1enc}
 
 \setkomavar{fromname}{@@vorname@@ @@nachname@@}
 \setkomavar{fromaddress}{@@strasse@@ @@hausnummer@@\\@@plz@@ @@ort@@}

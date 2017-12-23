@@ -78,7 +78,9 @@ class GenerationController extends Controller
 				$this->addReminder($dataSet["email"], $dataSet["targets"]);
 			}
 
-			$this->sendDownloadEmail($targetFolderHash, $dataSet["email"]);
+			if (!$this->error) {
+				$this->sendDownloadEmail($targetFolderHash, $dataSet["email"]);
+			}
 
 			// Wenn wir nicht im dev modus sind lösche den Datensatz
 			if (!\Yii::$app->params["cli_dev"]) {
@@ -212,7 +214,6 @@ class GenerationController extends Controller
 	    // https://github.com/mike42/web-pdf/blob/master/LatexTemplate.php
         // Prepare backslash/newline handling
         $text = str_replace("\n", "\\\\", $text); // Rescue newlines
-        $text = preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $text); // Strip all non-printables
         $text = str_replace("\\\\", "\n", $text); // Re-insert newlines and clear \\
         $text = str_replace("\\", "\\\\", $text); // Use double-backslash to signal a backslash in the input (escaped in the final step).
 
