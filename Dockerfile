@@ -1,5 +1,4 @@
 FROM webdevops/php-nginx:7.1
-
 LABEL maintainer="Sebastian Elisa Pfeifer <sebastian.pfeifer@unicorncloud.org>"
 
 COPY . /app
@@ -8,7 +7,7 @@ COPY ./.env-docker /app/.env
 RUN chmod -R 777 /app
 
 RUN apt-get update && \
-  apt-get dist-upgrade -y && \
+  apt-get -y dist-upgrade && \
   rm -rf /var/lib/apt/lists/* && \
   apt-get clean
 
