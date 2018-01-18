@@ -12,7 +12,7 @@ services:
       - MYSQL_PASSWORD=auskunftsbegehren_at
       - MYSQL_USER=auskunftsbegehren_at
       - MYSQL_DATABASE=auskunftsbegehren_at
-    restart: never
+    restart: on-failure
 
   app:
     image: cyber-perikarp/auskunftsbegehren_at
