@@ -8,7 +8,7 @@ services:
     links:
       - database:database
     environment:
-      - MYSQL_HOST=dbserver
+      - MYSQL_HOST=database
       - MYSQL_PASSWORD=auskunftsbegehren_at
       - MYSQL_USER=auskunftsbegehren_at
       - MYSQL_DATABASE=auskunftsbegehren_at
