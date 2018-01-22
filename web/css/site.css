@@ -18,3 +18,15 @@ body {
 .logo {
     height: 50px;
 }
+
+.download {
+    padding: 10px;
+    margin: 0px 10px 50px 0px;
+    background: lightgrey;
+    font-size: 15px;
+    line-height: 15px;
+    color: black;
+    width: auto;
+    height: auto;
+    display: inline-block;
+}
