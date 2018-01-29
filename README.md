@@ -20,3 +20,6 @@ Zugehörige Projekte:
 3. .env-sample nach .env kopieren und anpassen
 4. php yii migrate ausführen im Projektordner
 5. auskunftsbegehren_at_adressen importieren
+6. /var/pdfStorage erstellen und dem Webserver Schreibrechte geben
+7. Mailcatcher oder so oder MTA einrichten
+8. <hier noch welche LaTeX Pakete man braucht schreiben>
