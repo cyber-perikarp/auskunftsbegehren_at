@@ -1,46 +1,50 @@
 version: "2"
 
 services:
-  dataimport:
-    image: cyber-perikarp/auskunftsbegehren_at_adressen
-    depends_on:
-      - "database"
-    links:
-      - database:database
+  database:
+    hostname: database
+    image: mariadb:latest
     environment:
       - MYSQL_HOST=database
       - MYSQL_PASSWORD=auskunftsbegehren_at
       - MYSQL_USER=auskunftsbegehren_at
       - MYSQL_DATABASE=auskunftsbegehren_at
-    restart: on-failure
+      - MYSQL_ROOT_PASSWORD
+    volumes:
+      - /opt/docker-mariadb:/var/lib/mysql
+
+  importer:
+    hostname: importer
+    image: cyber-perikarp/auskunftsbegehren_at_adressen:latest
+    environment:
+       - MYSQL_HOST=database
+       - MYSQL_PASSWORD=auskunftsbegehren_at
+       - MYSQL_USER=auskunftsbegehren_at
+       - MYSQL_DATABASE=auskunftsbegehren_at
+    depends_on:
+       - "database"
+    links:
+       - database:database
 
   app:
     image: cyber-perikarp/auskunftsbegehren_at
     hostname: webserver
     ports:
-     - "8080:8080"
+     - "8080:80"
     depends_on:
       - "database"
       - "mailcatcher"
-      - "dataimport"
+      - "importer"
     links:
       - database:database
       - mailcatcher:mailcatcher
-    restart: unless-stopped
-
-  database:
-    image: mariadb:latest
-    hostname: dbserver
-    environment:
-      - MYSQL_PASSWORD=auskunftsbegehren_at
-      - MYSQL_USER=auskunftsbegehren_at
-      - MYSQL_DATABASE=auskunftsbegehren_at
-      - MYSQL_ROOT_PASSWORD=root
-    restart: unless-stopped
+    volumes:
+      - /opt/docker-pdf:/var/pdfStorage
 
   mailcatcher:
     image: schickling/mailcatcher
     hostname: mailcatcher
     ports:
       - "8081:1080"
-    restart: unless-stopped
+    environment:
+      - MAILCATCHER_PORT_1025_TCP_ADDR=25
