@@ -40,7 +40,6 @@ ADD .php.ini /etc/php/php.ini
 ADD .www.conf /etc/php/php7.1-fpm.d/www.conf
 
 COPY . /var/www
-COPY ./.env /var/www/.env
 COPY .start.sh /start.sh
 
 RUN mkdir /var/pdfStorage
@@ -56,7 +55,9 @@ RUN curl https://getcomposer.org/composer.phar -o /usr/bin/composer
 RUN chmod +x /usr/bin/composer
 RUN composer install -d=/var/www
 
+RUN ls -hall /var/www
+
 EXPOSE 80
 
-ENTRYPOINT ["ash", "/start.sh"]
+ENTRYPOINT ["bash", "/start.sh"]
 
