@@ -36,10 +36,14 @@ RUN addgroup --system www
 RUN adduser www www
 
 ADD .nginx.conf /etc/nginx/nginx.conf
-ADD .php.ini /etc/php/php.ini
-ADD .www.conf /etc/php/php7.1-fpm.d/www.conf
+ADD .php.ini /etc/php/7.1/php.ini
+ADD .www.conf /etc/php/7.1/fpm/pool.d/www.conf
+
+RUN mkdir /run/php
+RUN chown -R www:www /run/php
 
 COPY . /var/www
+#COPY .env /var/www/.env
 COPY .start.sh /start.sh
 
 RUN mkdir /var/pdfStorage
