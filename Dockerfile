@@ -43,7 +43,7 @@ RUN mkdir /run/php
 RUN chown -R www:www /run/php
 
 COPY . /var/www
-#COPY .env /var/www/.env
+COPY .env-sample /var/www/.env
 COPY .start.sh /start.sh
 
 RUN mkdir /var/pdfStorage
