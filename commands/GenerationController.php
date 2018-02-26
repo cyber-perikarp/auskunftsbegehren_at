@@ -284,6 +284,9 @@ class GenerationController extends Controller
 		if ($returnCode == 0) {
 			return true;
 		}
+
+		echo $output;
+
 		return false;
 	}
 
