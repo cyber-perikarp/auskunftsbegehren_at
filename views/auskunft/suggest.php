@@ -35,7 +35,7 @@ $this->title = 'Datensammler melden';
                 <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
             </div>
             <div class="form-group col-md-6">
-                <?= $form->field($model, 'branche')->dropDownList($branchen) ?>
+                <?= $form->field($model, 'branche')->dropDownList(ArrayHelper::map($branchen, 'id', 'name')) ?>
             </div>
         </div>
 
@@ -48,7 +48,7 @@ $this->title = 'Datensammler melden';
                 <?= $form->field($model, 'adresse') ?>
             </div>
             <div class="form-group col-md-6">
-                <?= $form->field($model, 'typ')->dropDownList($typen) ?>
+                <?= $form->field($model, 'typ')->dropDownList(ArrayHelper::map($typen, 'id', 'name')) ?>
             </div>
         </div>
 
@@ -70,7 +70,7 @@ $this->title = 'Datensammler melden';
         </div>
 
         <span id="help-data" class="help-block">
-            Mail oder fax, aber ned beides.
+            Mail oder fax, aber ned beides. (Format: +43664XXXXXXX)
             Ne, beides is auch ok. ( Validierung sagt nein :O )
             auskunftsbegehren_at/models/AdressdatenSuggest.php
         </span>
@@ -89,9 +89,7 @@ $this->title = 'Datensammler melden';
         
         <div class="form-row">
             <div class="form-group col-md-12">
-                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
-                        'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                ]) ?>
+                <?= $form->field($model, 'verifyCode')->widget(Captcha::className()) ?>
             </div>
         </div>
     </div>

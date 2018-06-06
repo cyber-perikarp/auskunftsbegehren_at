@@ -37,12 +37,12 @@ class AdressdatenSuggest extends Adressdaten
         $rules = parent::rules();
         $rules[] = [['verifyCode', 'tel'], 'required'];
         $rules[] = ['verifyCode', 'captcha'];
-        $rules[] = [['fax', 'tel'], 'match', 'pattern'=>'/^([a-z0-9_])+$/'];
-        $rules[] = [['fax', 'email'], 'one_of_two', 'skipOnEmpty' => false];
+        $rules[] = [['fax', 'tel'], 'match', 'pattern'=>'/^\+43[0-9]+$/'];
+        $rules[] = [['fax', 'email'], 'mail_or_fax', 'skipOnEmpty' => false];
         return $rules;
     }
 
-    public function one_of_two($attribute_name, $params)
+    public function mail_or_fax($attribute_name, $params)
     {
         if (empty($this->fax) && empty($this->email)
         ) {
@@ -62,5 +62,13 @@ class AdressdatenSuggest extends Adressdaten
         $attributeLabels = parent::attributeLabels();
         $attributeLabels['verifyCode'] = 'Verify that you are alive';
         return $attributeLabels;
+    }
+
+       /**
+     * @inheritdoc
+     */
+    public function save($runValidation = true, $attributeNames = NULL)
+    {
+        return parent::save($runValidation, $attributeNames);
     }
 }

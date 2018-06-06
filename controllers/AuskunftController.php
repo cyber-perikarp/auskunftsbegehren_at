@@ -10,17 +10,6 @@ use app\models\Generated;
 
 class AuskunftController extends \yii\web\Controller
 {
-
-	public function actions()
-	{
-		return array(
-			'verifyCode'=>array(
-				'class'=>'CaptchaAction',
-				'backColor'=>0xFFFFFF,
-			),
-		);
-	}
-
     public function actionIndex()
     {
         $model = new Auskunft();
@@ -56,6 +45,7 @@ class AuskunftController extends \yii\web\Controller
 		$typen = Adressdaten::find()->select(["typ"])->groupBy("typ")->asArray()->all();
 
         if ($model->load(Yii::$app->request->post())) {
+			$model['id'] = "xxxINSERTEDxxx";
             if ($model->validate()) {
 	            if ($model->save()) {
 					return $this->render('suggestSuccess');
@@ -101,7 +91,7 @@ class AuskunftController extends \yii\web\Controller
 	private function buildDict ($arr, $val) {
 		$ret = [];
     	foreach ($arr as $key => $value) {
-			$ret[] = $value[$val];
+			$ret[] = ['id' => $value[$val], 'name' => $value[$val]];
 		}
 		return $ret;
 	}
