@@ -37,12 +37,6 @@ $this->title = 'Datensammler melden';
         </div>
 
         <div class="form-row">
-			<div class="form-group col-md-12">
-				<?= $form->field($model, 'idType')->dropDownList(ArrayHelper::map($idTypes, 'id', 'name')); ?>
-			</div>
-		</div>
-
-        <div class="form-row">
             <div class="form-group col-md-6">
                 <?= $form->field($model, 'branche')->dropDownList(ArrayHelper::map($branchen, 'id', 'name')); ?>
             </div>
