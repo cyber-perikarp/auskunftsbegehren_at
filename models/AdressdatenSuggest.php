@@ -31,6 +31,9 @@ class AdressdatenSuggest extends Adressdaten
      */
     public function rules()
     {
+        // TODO: Fix Validation, says no but should be ok
+        // TODO: Add REAL Telephone Validation
+
         $rules = parent::rules();
         $rules[] = [['verifyCode', 'tel'], 'required'];
         $rules[] = ['verifyCode', 'captcha'];
@@ -41,8 +44,7 @@ class AdressdatenSuggest extends Adressdaten
 
     public function one_of_two($attribute_name, $params)
     {
-        if (empty($this->fax)
-                && empty($this->email)
+        if (empty($this->fax) && empty($this->email)
         ) {
             $this->addError($attribute_name, 'Either Email or Fax must be filled up properly');
 

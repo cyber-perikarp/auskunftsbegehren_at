@@ -31,8 +31,8 @@ class AuskunftController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-	            // Weil Relationen hier unnötig viel Aufwand wären speichern wir alle Ziele als Json
-	            $model->targets = json_encode($model->targets);
+				// Weil Relationen hier unnötig viel Aufwand wären speichern wir alle Ziele als Json
+				$model->targets = json_encode($model->targets);
 
 	            if ($model->save()) {
 					return $this->render('success');
@@ -57,11 +57,8 @@ class AuskunftController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-	            // Weil Relationen hier unnötig viel Aufwand wären speichern wir alle Ziele als Json
-	            $model->targets = json_encode($model->targets);
-
 	            if ($model->save()) {
-					return $this->render('success');
+					return $this->render('suggestSuccess');
 	            }
             }
         }

@@ -20,9 +20,9 @@ $this->title = 'Datensammler melden';
 //				'tag' => false,
 			],
             'horizontalCssClasses' => [
-                'label' => 'col-md-2',
+                'label' => 'col-md-4',
                 'offset' => 'col-md-offset-4',
-                'wrapper' => 'col-md-8',
+                'wrapper' => 'col-md-6',
                 'error' => '',
                 'hint' => '',
             ],
@@ -31,27 +31,27 @@ $this->title = 'Datensammler melden';
 	?>
 	<div class="form-fields container">
         <div class="form-row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+            </div>
+            <div class="form-group col-md-6">
+                <?= $form->field($model, 'branche')->dropDownList($branchen) ?>
             </div>
         </div>
 
+        <span id="help-data" class="help-block">
+            Bitte vollständige Addresse angeben
+        </span>
+
         <div class="form-row">
             <div class="form-group col-md-6">
-                <?= $form->field($model, 'branche')->dropDownList($branchen) ?>
+                <?= $form->field($model, 'adresse') ?>
             </div>
             <div class="form-group col-md-6">
                 <?= $form->field($model, 'typ')->dropDownList($typen) ?>
             </div>
         </div>
-        <!-- <span id="help-data" class="help-block">
-            Bitte korrekte Addresse angeben
-        </span> -->
-        <div class="form-row">
-            <div class="form-group col-md-12">
-                <?= $form->field($model, 'adresse') ?>
-            </div>
-        </div>
+
         <div class="form-row">
             <div class="form-group col-md-6">
                 <?= $form->field($model, 'plz') ?>
@@ -69,10 +69,11 @@ $this->title = 'Datensammler melden';
             </div>
         </div>
 
-        <!-- <span id="help-data" class="help-block">
+        <span id="help-data" class="help-block">
             Mail oder fax, aber ned beides.
-            Ne, beides is auch ok. (Validierung)
-        </span> -->
+            Ne, beides is auch ok. ( Validierung sagt nein :O )
+            auskunftsbegehren_at/models/AdressdatenSuggest.php
+        </span>
 
         <div class="form-row">
             <div class="form-group col-md-4">
