@@ -14,7 +14,7 @@ class AuskunftController extends \yii\web\Controller
 	public function actions()
 	{
 		return array(
-			'captcha'=>array(
+			'verifyCode'=>array(
 				'class'=>'CaptchaAction',
 				'backColor'=>0xFFFFFF,
 			),
@@ -24,6 +24,7 @@ class AuskunftController extends \yii\web\Controller
     public function actionIndex()
     {
         $model = new Auskunft();
+        $idTypes = IdTypes::find()->all();
 
         $branchen = Adressdaten::find()->select(["branche"])->groupBy("branche")->asArray()->all();
         $ziele = Adressdaten::find()->select(["id", "typ", "branche", "name", "stadt", "bundesland", "email", "fax"])->orderBy("branche")->addOrderBy("typ")->addOrderBy("name")->asArray()->all();
@@ -50,7 +51,6 @@ class AuskunftController extends \yii\web\Controller
 	public function actionSuggest()
 	{
 		$model = new AdressdatenSuggest();
-        $idTypes = IdTypes::find()->all();
 
 		$branchen = Adressdaten::find()->select(["branche"])->groupBy("branche")->asArray()->all();
 		$typen = Adressdaten::find()->select(["typ"])->groupBy("typ")->asArray()->all();
@@ -68,9 +68,8 @@ class AuskunftController extends \yii\web\Controller
 
         return $this->render('suggest', [
             'model' => $model,
-            'idTypes' => $idTypes,
-			'branchen' => $branchen,
-			'typen' => $typen
+			'branchen' => $this->buildDict($branchen, 'branche'),
+			'typen' => $this->buildDict($typen, 'typ')
         ]);
 	}
 
@@ -100,5 +99,13 @@ class AuskunftController extends \yii\web\Controller
 
 	private function buildPath ($id) {
     	return \Yii::$app->params["outputBaseDir"] . "/" . $id . "/download.zip";
+	}
+
+	private function buildDict ($arr, $val) {
+		$ret = [];
+    	foreach ($arr as $key => $value) {
+			$ret[] = $value[$val];
+		}
+		return $ret;
 	}
 }

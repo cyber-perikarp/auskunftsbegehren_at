@@ -20,9 +20,9 @@ $this->title = 'Datensammler melden';
 //				'tag' => false,
 			],
             'horizontalCssClasses' => [
-                'label' => 'col-md-4',
+                'label' => 'col-md-2',
                 'offset' => 'col-md-offset-4',
-                'wrapper' => 'col-md-6',
+                'wrapper' => 'col-md-8',
                 'error' => '',
                 'hint' => '',
             ],
@@ -38,10 +38,10 @@ $this->title = 'Datensammler melden';
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <?= $form->field($model, 'branche')->dropDownList(ArrayHelper::map($branchen, 'id', 'name')); ?>
+                <?= $form->field($model, 'branche')->dropDownList($branchen) ?>
             </div>
             <div class="form-group col-md-6">
-                <?= $form->field($model, 'typ')->dropDownList(ArrayHelper::map($typen, 'id', 'name')); ?>
+                <?= $form->field($model, 'typ')->dropDownList($typen) ?>
             </div>
         </div>
         <!-- <span id="help-data" class="help-block">
@@ -98,7 +98,7 @@ $this->title = 'Datensammler melden';
 
 
 	<div class="form-group">
-		<?= Html::submitButton('Absenden!', ['class' => 'btn btn-primary']) ?>
+		<?= Html::submitButton('Eintragen!', ['class' => 'btn btn-primary']) ?>
 	</div>
 <?php ActiveForm::end(); ?>
 

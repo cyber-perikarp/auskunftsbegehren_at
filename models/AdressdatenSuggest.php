@@ -24,7 +24,7 @@ use Yii;
  */
 class AdressdatenSuggest extends Adressdaten
 {
-    public $captcha;
+    public $verifyCode;
 
     /**
      * @inheritdoc
@@ -32,9 +32,24 @@ class AdressdatenSuggest extends Adressdaten
     public function rules()
     {
         $rules = parent::rules();
-        $rules[] = ['captcha', 'required'];
-        $rules[] = ['captcha', 'captcha'];
+        $rules[] = [['verifyCode', 'tel'], 'required'];
+        $rules[] = ['verifyCode', 'captcha'];
+        $rules[] = [['fax', 'tel'], 'match', 'pattern'=>'/^([a-z0-9_])+$/'];
+        $rules[] = [['fax', 'email'], 'one_of_two', 'skipOnEmpty' => false];
         return $rules;
+    }
+
+    public function one_of_two($attribute_name, $params)
+    {
+        if (empty($this->fax)
+                && empty($this->email)
+        ) {
+            $this->addError($attribute_name, 'Either Email or Fax must be filled up properly');
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -43,7 +58,7 @@ class AdressdatenSuggest extends Adressdaten
     public function attributeLabels()
     {
         $attributeLabels = parent::attributeLabels();
-        $attributeLabels['captcha'] = 'Verify that you are alive';
+        $attributeLabels['verifyCode'] = 'Verify that you are alive';
         return $attributeLabels;
     }
 }
