@@ -4,11 +4,23 @@ namespace app\controllers;
 use Yii;
 use app\models\Auskunft;
 use app\models\Adressdaten;
+use app\models\AdressdatenSuggest;
 use app\models\IdTypes;
 use app\models\Generated;
 
 class AuskunftController extends \yii\web\Controller
 {
+
+	public function actions()
+	{
+		return array(
+			'captcha'=>array(
+				'class'=>'CaptchaAction',
+				'backColor'=>0xFFFFFF,
+			),
+		);
+	}
+
     public function actionIndex()
     {
         $model = new Auskunft();
@@ -34,7 +46,34 @@ class AuskunftController extends \yii\web\Controller
             'branchen' => $branchen,
             'ziele' => $ziele
         ]);
-    }
+	}
+	
+	public function actionSuggest()
+	{
+		$model = new AdressdatenSuggest();
+        $idTypes = IdTypes::find()->all();
+
+		$branchen = Adressdaten::find()->select(["branche"])->groupBy("branche")->asArray()->all();
+		$typen = Adressdaten::find()->select(["typ"])->groupBy("typ")->asArray()->all();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+	            // Weil Relationen hier unnötig viel Aufwand wären speichern wir alle Ziele als Json
+	            $model->targets = json_encode($model->targets);
+
+	            if ($model->save()) {
+					return $this->render('success');
+	            }
+            }
+        }
+
+        return $this->render('suggest', [
+            'model' => $model,
+            'idTypes' => $idTypes,
+			'branchen' => $branchen,
+			'typen' => $typen
+        ]);
+	}
 
 	public function actionDownload($id)
 	{
