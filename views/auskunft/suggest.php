@@ -6,6 +6,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\captcha\Captcha;
 
 $this->title = 'Datensammler melden';
