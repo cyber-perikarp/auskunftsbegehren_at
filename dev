@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker-compose up database importer mailcatcher phpmyadmin
