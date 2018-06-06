@@ -15,7 +15,8 @@ services:
 
   importer:
     hostname: importer
-    image: cyber-perikarp/auskunftsbegehren_at_adressen:latest
+    #image: cyber-perikarp/auskunftsbegehren_at_adressen:latest
+    build: ../auskunftsbegehren_at_adressen
     environment:
        - MYSQL_HOST=database
        - MYSQL_PASSWORD=auskunftsbegehren_at
@@ -27,14 +28,14 @@ services:
        - database:database
 
   app:
-    image: cyber-perikarp/auskunftsbegehren_at
+    #image: cyber-perikarp/auskunftsbegehren_at
+    build: .
     hostname: webserver
     ports:
      - "8080:80"
     depends_on:
       - "database"
       - "mailcatcher"
-      - "importer"
     links:
       - database:database
       - mailcatcher:mailcatcher

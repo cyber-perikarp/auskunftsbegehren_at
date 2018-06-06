@@ -59,8 +59,6 @@ RUN curl https://getcomposer.org/composer.phar -o /usr/bin/composer
 RUN chmod +x /usr/bin/composer
 RUN composer install -d /var/www
 
-RUN ls -hall /var/www
-
 EXPOSE 80
 
 ENTRYPOINT ["bash", "/start.sh"]
