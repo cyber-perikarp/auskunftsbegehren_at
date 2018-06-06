@@ -70,9 +70,10 @@ $this->title = 'Datensammler melden';
         </div>
 
         <span id="help-data" class="help-block">
-            Mail oder fax, aber ned beides. (Format: +43664XXXXXXX)
-            Ne, beides is auch ok. ( Validierung sagt nein :O )
-            auskunftsbegehren_at/models/AdressdatenSuggest.php
+            Mail oder fax, aber ned beides. (Format: +43664XXXXXXX)</br>
+            Ne, beides is auch ok.</br>
+            Validierung sagt nein :O</br>
+            fucking Captcha (╯°□°）╯︵ ┻━┻
         </span>
 
         <div class="form-row">
