@@ -37,6 +37,17 @@ class AuskunftController extends \yii\web\Controller
         ]);
 	}
 	
+	private function generateUniqueRandomString($attribute, $length = 32) {
+				
+		$randomString = Yii::$app->getSecurity()->generateRandomString($length);
+				
+		if(!$this->findOne([$attribute => $randomString]))
+			return $randomString;
+		else
+			return $this->generateUniqueRandomString($attribute, $length);
+				
+	}
+
 	public function actionSuggest()
 	{
 		$model = new AdressdatenSuggest();
@@ -45,7 +56,7 @@ class AuskunftController extends \yii\web\Controller
 		$typen = Adressdaten::find()->select(["typ"])->groupBy("typ")->asArray()->all();
 
         if ($model->load(Yii::$app->request->post())) {
-			$model['id'] = "xxxINSERTEDxxx";
+			$model['id'] = $this->generateUniqueRandomString($model['name']);
             if ($model->validate()) {
 	            if ($model->save()) {
 					return $this->render('suggestSuccess');
