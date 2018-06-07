@@ -20,10 +20,9 @@ $this->title = 'Datensammler melden';
 <div class="alert alert-danger">
     Failed to Insert data.
 </div>
-
 <?php if (YII_DEBUG): ?>
 <p>
-<?php 
+<?php
         highlight_string("<?php\n\$model =\n" . var_export($model, true) . ";\n?>");
         highlight_string("<?php\n\$model->errors =\n" . var_export($model->errors, true) . ";\n?>");
         highlight_string("<?php\n\$_POST =\n" . var_export($_POST, true) . ";\n?>");
@@ -32,13 +31,12 @@ $this->title = 'Datensammler melden';
 </p>
 <?php endif; ?>
 <?php elseif (Yii::$app->session->hasFlash('contactFormInvalid')): ?>
-
 <div class="alert alert-warning">
     Invalid Data supplyed.
 </div>
 <?php if (YII_DEBUG): ?>
 <p>
-<?php 
+<?php
         highlight_string("<?php\n\$model =\n" . var_export($model, true) . ";\n?>");
         highlight_string("<?php\n\$model->errors =\n" . var_export($model->errors, true) . ";\n?>");
         highlight_string("<?php\n\$_POST =\n" . var_export($_POST, true) . ";\n?>");
@@ -126,7 +124,7 @@ $this->title = 'Datensammler melden';
                 <?= $form->field($model, 'fax') ?>
             </div>
         </div>
-        
+
         <div class="form-row">
             <div class="form-group col-md-12">
                 <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), ['captchaAction'=>'auskunft/captcha']) ?>
