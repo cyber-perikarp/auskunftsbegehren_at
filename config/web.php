@@ -70,7 +70,7 @@ $config = [
     'params' => $params,
 ];
 
-if (true) {
+if ($dev) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
