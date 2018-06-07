@@ -64,7 +64,7 @@ class AdressdatenSuggest extends Adressdaten
         return $attributeLabels;
     }
 
-       /**
+    /**
      * @inheritdoc
      */
     public function save($runValidation = true, $attributeNames = NULL)

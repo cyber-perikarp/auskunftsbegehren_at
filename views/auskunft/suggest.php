@@ -22,12 +22,12 @@ $this->title = 'Datensammler melden';
 </div>
 <?php if (YII_DEBUG): ?>
 <p>
-<?php
+    <?php
         highlight_string("<?php\n\$model =\n" . var_export($model, true) . ";\n?>");
         highlight_string("<?php\n\$model->errors =\n" . var_export($model->errors, true) . ";\n?>");
         highlight_string("<?php\n\$_POST =\n" . var_export($_POST, true) . ";\n?>");
         highlight_string("<?php\n\$_SESSION =\n" . var_export($_SESSION, true) . ";\n?>");
-     ?>
+    ?>
 </p>
 <?php endif; ?>
 <?php elseif (Yii::$app->session->hasFlash('contactFormInvalid')): ?>
@@ -36,26 +36,26 @@ $this->title = 'Datensammler melden';
 </div>
 <?php if (YII_DEBUG): ?>
 <p>
-<?php
+    <?php
         highlight_string("<?php\n\$model =\n" . var_export($model, true) . ";\n?>");
         highlight_string("<?php\n\$model->errors =\n" . var_export($model->errors, true) . ";\n?>");
         highlight_string("<?php\n\$_POST =\n" . var_export($_POST, true) . ";\n?>");
         highlight_string("<?php\n\$_SESSION =\n" . var_export($_SESSION, true) . ";\n?>");
-     ?>
+    ?>
 </p>
 <?php endif; ?>
 <?php endif; ?>
 <div class="sammler-melden">
     <?php
-	$form = ActiveForm::begin([
+    $form = ActiveForm::begin([
         'id' => 'suggest-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-		'layout' => 'horizontal',
-		'fieldConfig' => [
-			'options' => [
+        'layout' => 'horizontal',
+        'fieldConfig' => [
+            'options' => [
 //				'tag' => false,
-			],
+            ],
             'horizontalCssClasses' => [
                 'label' => 'col-md-4',
                 'offset' => 'col-md-offset-4',
@@ -63,9 +63,9 @@ $this->title = 'Datensammler melden';
                 'error' => '',
                 'hint' => '',
             ],
-		],
-	]);
-	?>
+        ],
+    ]);
+    ?>
 	<div class="form-fields container">
         <div class="form-row">
             <div class="form-group col-md-6">
