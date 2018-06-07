@@ -76,12 +76,10 @@ class AuskunftController extends \yii\web\Controller
             if ($model->validate()) {
 	            if ($model->save(false)) { // no validation for insertion, is done before
 					Yii::$app->session->setFlash('contactFormSubmitted');
-	            } else {
-					Yii::$app->session->setFlash('contactFormFailed');
-				}
-            } else {
-				Yii::$app->session->setFlash('contactFormInvalid');
-			}
+	            }
+				Yii::$app->session->setFlash('contactFormFailed');
+            } 
+			Yii::$app->session->setFlash('contactFormInvalid');
 			return $this->refresh();
         }
 
@@ -122,7 +120,7 @@ class AuskunftController extends \yii\web\Controller
 
 	private function buildDict ($arr, $val) {
 		$ret = [];
-    	foreach ($arr as $key => $value) {
+    	foreach ($arr as $value) {
 			$ret[] = ['id' => $value[$val], 'name' => $value[$val]];
 		}
 		return $ret;
