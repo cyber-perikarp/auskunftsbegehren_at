@@ -14,6 +14,9 @@ $this->title = 'Datensammler melden';
 <div class="sammler-melden">
     <?php
 	$form = ActiveForm::begin([
+        'id' => 'suggest-form',
+        'enableAjaxValidation'   => false,
+        'enableClientValidation' => true,
 		'layout' => 'horizontal',
 		'fieldConfig' => [
 			'options' => [
