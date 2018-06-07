@@ -38,15 +38,15 @@ class AdressdatenSuggest extends Adressdaten
         $rules[] = [['verifyCode', 'tel'], 'required'];
         $rules[] = ['verifyCode', 'captcha', 'captchaAction' =>'auskunft/captcha'];
         $rules[] = [['fax', 'tel'], 'match', 'pattern'=>'/^\+43[0-9]+$/'];
-        $rules[] = [['fax', 'email'], 'mail_or_fax', 'skipOnEmpty' => false];
+        $rules[] = [['fax', 'email'], 'mailOrFax', 'skipOnEmpty' => false];
         return $rules;
     }
 
-    public function mail_or_fax($attribute_name, $params)
+    public function mailOrFax($attributeName)
     {
         if (empty($this->fax) && empty($this->email)
         ) {
-            $this->addError($attribute_name, 'Either Email or Fax must be filled up properly');
+            $this->addError($attributeName, 'Either Email or Fax must be filled up properly');
 
             return false;
         }
