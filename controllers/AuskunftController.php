@@ -59,9 +59,14 @@ class AuskunftController extends \yii\web\Controller
 			$model['id'] = $this->generateUniqueRandomString($model['name']);
             if ($model->validate()) {
 	            if ($model->save()) {
-					return $this->render('suggestSuccess');
-	            }
-            }
+					Yii::$app->session->setFlash('contactFormSubmitted');
+	            } else {
+					Yii::$app->session->setFlash('contactFormFailed');
+				}
+            } else {
+				Yii::$app->session->setFlash('contactFormInvalid');
+			}
+			return $this->refresh();
         }
 
         return $this->render('suggest', [
