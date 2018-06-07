@@ -41,7 +41,7 @@ class AuskunftController extends \yii\web\Controller
 				
 		$randomString = Yii::$app->getSecurity()->generateRandomString($length);
 				
-		if(!$this->findOne([$attribute => $randomString]))
+		if(!Adressdaten::findOne(['id' => $randomString]))
 			return $randomString;
 		else
 			return $this->generateUniqueRandomString($attribute, $length);
