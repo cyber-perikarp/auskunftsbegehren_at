@@ -10,6 +10,22 @@ use app\models\Generated;
 
 class AuskunftController extends \yii\web\Controller
 {
+	/**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'test' : null,
+            ]
+        ];
+    }
+
     public function actionIndex()
     {
         $model = new Auskunft();
@@ -37,6 +53,17 @@ class AuskunftController extends \yii\web\Controller
         ]);
 	}
 	
+	private function generateUniqueRandomString($attribute, $length = 32) {
+				
+		$randomString = Yii::$app->getSecurity()->generateRandomString($length);
+				
+		if(!Adressdaten::findOne(['id' => $randomString]))
+			return $randomString;
+		else
+			return $this->generateUniqueRandomString($attribute, $length);
+				
+	}
+
 	public function actionSuggest()
 	{
 		$model = new AdressdatenSuggest();
@@ -45,12 +72,17 @@ class AuskunftController extends \yii\web\Controller
 		$typen = Adressdaten::find()->select(["typ"])->groupBy("typ")->asArray()->all();
 
         if ($model->load(Yii::$app->request->post())) {
-			$model['id'] = "xxxINSERTEDxxx";
+			$model['id'] = $this->generateUniqueRandomString($model['name']);
             if ($model->validate()) {
-	            if ($model->save()) {
-					return $this->render('suggestSuccess');
-	            }
-            }
+	            if ($model->save(false)) { // no validation for insertion, is done before
+					Yii::$app->session->setFlash('contactFormSubmitted');
+	            } else {
+					Yii::$app->session->setFlash('contactFormFailed');
+				}
+            } else {
+				Yii::$app->session->setFlash('contactFormInvalid');
+			}
+			return $this->refresh();
         }
 
         return $this->render('suggest', [

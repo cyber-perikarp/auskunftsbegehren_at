@@ -11,9 +11,46 @@ use yii\captcha\Captcha;
 
 $this->title = 'Datensammler melden';
 ?>
+<?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
+<div class="alert alert-success">
+    Successfully Inserted Data
+</div>
+<?php elseif (Yii::$app->session->hasFlash('contactFormFailed')): ?>
+
+<div class="alert alert-danger">
+    Failed to Insert data.
+</div>
+<?php if (YII_DEBUG): ?>
+<p>
+<?php
+        highlight_string("<?php\n\$model =\n" . var_export($model, true) . ";\n?>");
+        highlight_string("<?php\n\$model->errors =\n" . var_export($model->errors, true) . ";\n?>");
+        highlight_string("<?php\n\$_POST =\n" . var_export($_POST, true) . ";\n?>");
+        highlight_string("<?php\n\$_SESSION =\n" . var_export($_SESSION, true) . ";\n?>");
+     ?>
+</p>
+<?php endif; ?>
+<?php elseif (Yii::$app->session->hasFlash('contactFormInvalid')): ?>
+<div class="alert alert-warning">
+    Invalid Data supplyed.
+</div>
+<?php if (YII_DEBUG): ?>
+<p>
+<?php
+        highlight_string("<?php\n\$model =\n" . var_export($model, true) . ";\n?>");
+        highlight_string("<?php\n\$model->errors =\n" . var_export($model->errors, true) . ";\n?>");
+        highlight_string("<?php\n\$_POST =\n" . var_export($_POST, true) . ";\n?>");
+        highlight_string("<?php\n\$_SESSION =\n" . var_export($_SESSION, true) . ";\n?>");
+     ?>
+</p>
+<?php endif; ?>
+<?php endif; ?>
 <div class="sammler-melden">
     <?php
 	$form = ActiveForm::begin([
+        'id' => 'suggest-form',
+        'enableAjaxValidation'   => false,
+        'enableClientValidation' => true,
 		'layout' => 'horizontal',
 		'fieldConfig' => [
 			'options' => [
@@ -87,10 +124,10 @@ $this->title = 'Datensammler melden';
                 <?= $form->field($model, 'fax') ?>
             </div>
         </div>
-        
+
         <div class="form-row">
             <div class="form-group col-md-12">
-                <?= $form->field($model, 'verifyCode')->widget(Captcha::className()) ?>
+                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), ['captchaAction'=>'auskunft/captcha']) ?>
             </div>
         </div>
     </div>
