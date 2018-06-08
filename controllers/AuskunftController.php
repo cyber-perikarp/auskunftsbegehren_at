@@ -4,11 +4,28 @@ namespace app\controllers;
 use Yii;
 use app\models\Auskunft;
 use app\models\Adressdaten;
+use app\models\AdressdatenSuggest;
 use app\models\IdTypes;
 use app\models\Generated;
 
 class AuskunftController extends \yii\web\Controller
 {
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'test' : null,
+            ]
+        ];
+    }
+
     public function actionIndex()
     {
         $model = new Auskunft();
@@ -19,12 +36,12 @@ class AuskunftController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-	            // Weil Relationen hier unnötig viel Aufwand wären speichern wir alle Ziele als Json
-	            $model->targets = json_encode($model->targets);
+                // Weil Relationen hier unnötig viel Aufwand wären speichern wir alle Ziele als Json
+                $model->targets = json_encode($model->targets);
 
-	            if ($model->save()) {
-					return $this->render('success');
-	            }
+                if ($model->save()) {
+                    return $this->render('success');
+                }
             }
         }
 
@@ -35,32 +52,75 @@ class AuskunftController extends \yii\web\Controller
             'ziele' => $ziele
         ]);
     }
+    
+    public function actionSuggest()
+    {
+        $model = new AdressdatenSuggest();
 
-	public function actionDownload($id)
-	{
-		$path = $this->buildPath($id);
+        $branchen = Adressdaten::find()->select(["branche"])->groupBy("branche")->asArray()->all();
+        $typen = Adressdaten::find()->select(["typ"])->groupBy("typ")->asArray()->all();
 
-		if (!file_exists($path)) {
-			throw new \yii\web\NotFoundHttpException("Link abgelaufen.");
-		}
+        if ($model->load(Yii::$app->request->post())) {
+            $model['id'] = $this->generateUniqueRandomString($model['name']);
+            if ($model->validate()) {
+                if ($model->save(false)) { // no validation for insertion, is done before
+                    Yii::$app->session->setFlash('contactFormSubmitted');
+                }
+                Yii::$app->session->setFlash('contactFormFailed');
+            } 
+            Yii::$app->session->setFlash('contactFormInvalid');
+            return $this->refresh();
+        }
 
-		$generated = Generated::findOne(["id" => $id]);
-		$generated->linkopened = true;
-		$generated->save();
+        return $this->render('suggest', [
+            'model' => $model,
+            'branchen' => $this->buildDict($branchen, 'branche'),
+            'typen' => $this->buildDict($typen, 'typ')
+        ]);
+    }
 
-		return $this->render('download', [
-			'id' => $id
-		]);
-	}
+    public function actionDownload($id)
+    {
+        $path = $this->buildPath($id);
 
-	public function actionDownloadstart($id) {
-		$path = $this->buildPath($id);
-		if (file_exists($path)) {
-			Yii::$app->response->sendFile($path, "auskunftsbegehren.zip", array("mimeType" => "application/zip", "inline" => false));
-		}
-	}
+        if (!file_exists($path)) {
+            throw new \yii\web\NotFoundHttpException("Link abgelaufen.");
+        }
 
-	private function buildPath ($id) {
-    	return \Yii::$app->params["outputBaseDir"] . "/" . $id . "/download.zip";
-	}
+        $generated = Generated::findOne(["id" => $id]);
+        $generated->linkopened = true;
+        $generated->save();
+
+        return $this->render('download', [
+            'id' => $id
+        ]);
+    }
+
+    public function actionDownloadstart($id) {
+        $path = $this->buildPath($id);
+        if (file_exists($path)) {
+            Yii::$app->response->sendFile($path, "auskunftsbegehren.zip", array("mimeType" => "application/zip", "inline" => false));
+        }
+    }
+
+    private function generateUniqueRandomString($attribute, $length = 32) {
+        $randomString = Yii::$app->getSecurity()->generateRandomString($length);
+        if (!Adressdaten::findOne(['id' => $randomString])) {
+            return $randomString;
+        } else {
+            return $this->generateUniqueRandomString($attribute, $length);
+        }
+    }
+
+    private function buildPath($id) {
+        return \Yii::$app->params["outputBaseDir"] . "/" . $id . "/download.zip";
+    }
+
+    private function buildDict($arr, $val) {
+        $ret = [];
+        foreach ($arr as $value) {
+            $ret[] = ['id' => $value[$val], 'name' => $value[$val]];
+        }
+        return $ret;
+    }
 }

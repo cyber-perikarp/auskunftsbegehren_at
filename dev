@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker-compose up database importer mailcatcher phpmyadmin &
+./yii serve --port=8080

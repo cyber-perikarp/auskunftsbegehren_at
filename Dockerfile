@@ -57,9 +57,7 @@ RUN chmod -R 755 /var/www
 
 RUN curl https://getcomposer.org/composer.phar -o /usr/bin/composer
 RUN chmod +x /usr/bin/composer
-RUN composer install -d=/var/www
-
-RUN ls -hall /var/www
+RUN composer install -d /var/www
 
 EXPOSE 80
 
