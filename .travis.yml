@@ -30,3 +30,5 @@ script:
   #  php -S localhost:8080 > /dev/null 2>&1 &
   #  cd ../
   - codecept run acceptance,functional,unit -vvv --coverage --coverage-xml --coverage-html
+
+after_success: coveralls
