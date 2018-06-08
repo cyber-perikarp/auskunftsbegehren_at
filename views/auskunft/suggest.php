@@ -11,7 +11,7 @@ use yii\captcha\Captcha;
 
 $this->title = 'Datensammler melden';
 ?>
-<?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
+<?php if (Yii::$app->session->/** @scrutinizer ignore-call */hasFlash('contactFormSubmitted')): ?>
 <div class="alert alert-success">
     Successfully Inserted Data
 </div>
@@ -127,7 +127,7 @@ $this->title = 'Datensammler melden';
 
         <div class="form-row">
             <div class="form-group col-md-12">
-                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), ['captchaAction'=>'auskunft/captcha']) ?>
+                <?= $form->field($model, 'verifyCode')->widget(Captcha::class, ['captchaAction'=>'auskunft/captcha']) ?>
             </div>
         </div>
     </div>

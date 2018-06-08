@@ -64,7 +64,7 @@ class AuskunftController extends \yii\web\Controller
             $model['id'] = $this->generateUniqueRandomString($model['name']);
             if ($model->validate()) {
                 if ($model->save(false)) { // no validation for insertion, is done before
-                    Yii::$app->session->setFlash('contactFormSubmitted');
+                    Yii::$app->session->/** @scrutinizer ignore-call */setFlash('contactFormSubmitted');
                 }
                 Yii::$app->session->setFlash('contactFormFailed');
             } 
@@ -88,7 +88,7 @@ class AuskunftController extends \yii\web\Controller
         }
 
         $generated = Generated::findOne(["id" => $id]);
-        $generated->linkopened = true;
+        $generated->linkopened = 1;
         $generated->save();
 
         return $this->render('download', [

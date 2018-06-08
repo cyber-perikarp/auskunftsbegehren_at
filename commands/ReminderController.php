@@ -41,8 +41,8 @@ class ReminderController extends Controller
 		$template = str_replace("@@datum@@", $datum, $template);
 		$template = str_replace("@@ziele@@", '* ' . implode("\n* ", $targetNames), $template);
 
-		\Yii::trace("Mail to: " . $email);
-		\Yii::trace("Targets: " . implode(", ", $targetNames));
+		\Yii::debug("Mail to: " . $email);
+		\Yii::debug("Targets: " . implode(", ", $targetNames));
 
 		$mailStatus = \Yii::$app->mailer->compose()
 			->setFrom(\Yii::$app->params["email_from"])
@@ -51,6 +51,6 @@ class ReminderController extends Controller
 			->setTextBody($template)
 			->send();
 
-		\Yii::trace("Email status: " . $mailStatus);
+		\Yii::debug("Email status: " . $mailStatus);
 	}
 }
