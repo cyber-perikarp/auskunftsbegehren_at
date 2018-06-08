@@ -100,18 +100,8 @@ class View extends YiiView
         if (!empty($this->jsFiles[self::POS_END])) {
             $lines[] = implode("\n", $this->jsFiles[self::POS_END]);
         }
-
         if ($ajaxMode) {
-            $scripts = [];
-            if (!empty($this->js[self::POS_END])) {
-                $scripts = array_merge($scripts, $this->js[self::POS_END]);
-            }
-            if (!empty($this->js[self::POS_READY])) {
-                $scripts = array_merge($scripts, $this->js[self::POS_READY]);
-            }
-            if (!empty($this->js[self::POS_LOAD])) {
-                $scripts = array_merge($scripts, $this->js[self::POS_LOAD]);
-            }
+            $scripts = $this->getScripts();
             if (!empty($scripts)) {
                 $this->storage->offsetSet(self::STORAGE_JS_AJAX, $scripts);
                 $lines[] = Html::jsFile(['js/ajax', 'hash' => $this->hashKeys($scripts)]);
@@ -132,6 +122,20 @@ class View extends YiiView
         }
 
         return empty($lines) ? '' : implode("\n", $lines);
+    }
+
+    private function getScripts() {
+        $scripts = [];
+        if (!empty($this->js[self::POS_END])) {
+            $scripts = array_merge($scripts, $this->js[self::POS_END]);
+        }
+        if (!empty($this->js[self::POS_READY])) {
+            $scripts = array_merge($scripts, $this->js[self::POS_READY]);
+        }
+        if (!empty($this->js[self::POS_LOAD])) {
+            $scripts = array_merge($scripts, $this->js[self::POS_LOAD]);
+        }
+        return $scripts;
     }
 
     /**
