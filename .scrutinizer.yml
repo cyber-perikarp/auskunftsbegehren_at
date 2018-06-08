@@ -14,7 +14,7 @@ filter:
     - 'tests/*'
     - 'vendor/*'
     - 'web/js/jquery-*'
-    - 'web/css/bootstrap-*'
+    - 'web/css/bootstrap*'
 
 checks:
   php: true
