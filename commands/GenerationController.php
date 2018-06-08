@@ -41,7 +41,7 @@ class GenerationController extends Controller
 
 			$dataSet["idType"] = IdTypes::findOne(["id" => $dataSet["idType"]])["nameForText"];
 			
-			if (!$this->generateAndSavePdf($dataset)){
+			if (!$this->generateAndSavePdf($dataSet, $targetFolder)){
 				\Yii::error("Oh noes! PDF Creation failed");
 				$this->error = true;
 			}
@@ -92,7 +92,7 @@ class GenerationController extends Controller
 		return $dataSet;
 	}
 
-	private function generateAndSavePdf($dataSet) {
+	private function generateAndSavePdf($dataSet, $targetFolder) {
 		$targets = json_decode($dataSet["targets"]);
 		$ret = true;
 		foreach ($targets as $target) {
