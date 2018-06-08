@@ -33,7 +33,7 @@ class GenerationController extends Controller
             $dataSet["email"] = $this->latexEscape($dataSet["email"]);
             $dataSet["additional"] = $this->latexEscape($dataSet["additional"]);
 
-            \Yii::trace("Processing entry for " . $dataSet["email"]);
+            \Yii::debug("Processing entry for " . $dataSet["email"]);
         	$this->error = false;
 
         	$targets = json_decode($dataSet["targets"]);
@@ -60,7 +60,7 @@ class GenerationController extends Controller
 
 			// Die Logdateien sollen nur gelöscht und die Erinnerungen nur gespeichert werden wenn die pdf generierung erfolgreich war.
 			if (!$this->error) {
-				\Yii::trace("Deleting log files from generation");
+				\Yii::debug("Deleting log files from generation");
 				$this->deleteTempFiles($targetFolder);
 			}
 
@@ -145,7 +145,7 @@ class GenerationController extends Controller
 		if ($targetFolder) {
 			foreach ($extensionsToDelete as $extension) {
 				foreach( glob($targetFolder . "/*." . $extension) as $file ) {
-					\Yii::trace("Deleting file: " . $file);
+					\Yii::debug("Deleting file: " . $file);
 					unlink($file);
 				}
 			}
@@ -167,7 +167,7 @@ class GenerationController extends Controller
 
 	private function generateZipFile ($path) {
     	$zipFile = $path . "/download.zip";
-		\Yii::trace("Adding file to zip: " . $zipFile);
+		\Yii::debug("Adding file to zip: " . $zipFile);
 
     	try {
 			$zip = new \ZipArchive();
@@ -181,7 +181,7 @@ class GenerationController extends Controller
     	if (file_exists($zipFile)) {
 			if ($path) {
 				foreach( glob($path . "/*.pdf") as $file ) {
-					\Yii::trace("Deleting file: " . $file);
+					\Yii::debug("Deleting file: " . $file);
 					unlink($file);
 				}
 			}
@@ -279,7 +279,7 @@ class GenerationController extends Controller
 
 		exec($command, $output, $returnCode);
 
-		\Yii::trace("Command pdflatex returned error code " . $returnCode);
+		\Yii::debug("Command pdflatex returned error code " . $returnCode);
 
 		if ($returnCode == 0) {
 			return true;
@@ -296,7 +296,7 @@ class GenerationController extends Controller
 
 		$template = str_replace("@@url@@", $downloadUrl, $template);
 
-		\Yii::trace("Mail to: " . $email);
+		\Yii::debug("Mail to: " . $email);
 
 		$mailStatus = \Yii::$app->mailer->compose()
 			->setFrom(\Yii::$app->params["email_from"])
@@ -305,6 +305,6 @@ class GenerationController extends Controller
 			->setTextBody($template)
 			->send();
 
-		\Yii::trace("Email status: " . $mailStatus);
+		\Yii::debug("Email status: " . $mailStatus);
 	}
 }

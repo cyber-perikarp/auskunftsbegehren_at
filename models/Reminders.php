@@ -12,6 +12,7 @@ use Yii;
  * @property string $quelldatei
  * @property string $created_at
  * @property string $due_at
+ * @property string $targets
  */
 class Reminders extends BaseModel
 {
