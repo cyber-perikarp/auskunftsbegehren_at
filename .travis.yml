@@ -19,11 +19,10 @@ install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - travis_retry composer install --dev --prefer-dist --no-interaction
 # codeception
-  - travis_retry composer global require "codeception/codeception=2.0.*" "codeception/specify=*" "codeception/verify=*"
+  - travis_retry composer global require "codeception/codeception=2.4.*" "codeception/specify=*" "codeception/verify=*"
 # setup application:
-  - |
-    sed -i "s/'cookieValidationKey' => '5tDVXrSvrhz3vsRnsVmlJy5LSdupPvjG'/'cookieValidationKey' => 'testkey'/" config/web.php
-    codecept build
+  - sed -i "s/'cookieValidationKey' => '5tDVXrSvrhz3vsRnsVmlJy5LSdupPvjG'/'cookieValidationKey' => 'testkey'/" config/web.php
+  - codecept build
 
 script:
   - |
