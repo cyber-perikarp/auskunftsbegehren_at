@@ -29,6 +29,10 @@ phpunit.phar
 tests/_output/*
 tests/_support/_generated
 
+assets/*
+!assets/AppAsset.php
+!assets/JQueryAsset.php
+
 auskunftsbegehren_at.code-workspace
 .env
 

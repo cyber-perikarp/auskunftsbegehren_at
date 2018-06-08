@@ -28,6 +28,7 @@ class ContactFormTest extends \Codeception\Test\Unit
             'email' => 'tester@example.com',
             'subject' => 'very important letter subject',
             'body' => 'body of current message',
+            'verifyCode' => 'test'
         ];
 
         expect_that($this->model->contact('admin@example.com'));

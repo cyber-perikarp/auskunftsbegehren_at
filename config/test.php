@@ -12,21 +12,44 @@ return [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],  
-    'language' => 'de-AT',
+    'language' => 'en-US',
     'components' => [
         'db' => $db,
         'mailer' => [
             'useFileTransport' => true,
         ],
-        'assetManager' => [            
-            'basePath' => __DIR__ . '/../web/assets',
-        ],
+        'view' => 'app\components\View',
         'urlManager' => [
-            'showScriptName' => true,
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+      				'' => 'site/index',
+      				'<controller:\w+>/<action:\w+>/<id:\w+>' => '<controller>/<action>',
+      				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                [
+                    'pattern' => 'js/<action>/<hash>',
+                    'route' => 'js/<action>',
+                    'suffix' => '.js',
+                ],
+			],
         ],
-        'user' => [
-            'identityClass' => 'app\models\User',
-        ],        
+        'assetManager' => [
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'js'=>[]
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js'=>[]
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [],
+                ],
+
+            ],
+        ],
+        // 'user' => [
+        //     'identityClass' => 'app\models\User',
+        // ],        
         'request' => [
             'cookieValidationKey' => 'test',
             'enableCsrfValidation' => false,

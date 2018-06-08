@@ -21,7 +21,7 @@ class AuskunftController extends \yii\web\Controller
             ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'test' : null,
+                'fixedVerifyCode' => YII_DEBUG ? 'test' : null,
             ]
         ];
     }

@@ -1,6 +1,6 @@
 <?php
 
-if(strpos($_SERVER["SERVER_NAME"], ".local") !== false) {
+if(strpos($_SERVER["HTTP_HOST"], "localhost") !== false) {
     return true;
 }
 
