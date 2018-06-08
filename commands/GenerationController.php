@@ -25,18 +25,10 @@ class GenerationController extends Controller
 	    $allDatasets = Auskunft::find()->all();
 
         foreach ($allDatasets as $dataSet) {
-            $dataSet["firstName"] = $this->latexEscape($dataSet["firstName"]);
-            $dataSet["lastName"] = $this->latexEscape($dataSet["lastName"]);
-            $dataSet["street"] = $this->latexEscape($dataSet["street"]);
-            $dataSet["zip"] = $this->latexEscape($dataSet["zip"]);
-            $dataSet["city"] = $this->latexEscape($dataSet["city"]);
-            $dataSet["email"] = $this->latexEscape($dataSet["email"]);
-            $dataSet["additional"] = $this->latexEscape($dataSet["additional"]);
+			$dataSet = $this->latexEscapeDataSet($dataSet);
 
             \Yii::debug("Processing entry for " . $dataSet["email"]);
         	$this->error = false;
-
-        	$targets = json_decode($dataSet["targets"]);
 
         	$targetFolderHash = $this->generateHash();
 			$targetFolder = \Yii::$app->params["outputBaseDir"] . "/" . $targetFolderHash;
@@ -48,14 +40,10 @@ class GenerationController extends Controller
 			}
 
 			$dataSet["idType"] = IdTypes::findOne(["id" => $dataSet["idType"]])["nameForText"];
-
-			foreach ($targets as $target) {
-				\Yii::info("Target: " . $target);
-				$this->saveStats($target);
-				if (!$this->generatePdf(Adressdaten::findOne(["id" => $target]), $dataSet, $targetFolder)) {
-					\Yii::error("Oh noes! PDF Creation failed");
-					$this->error = true;
-				}
+			
+			if (!$this->generateAndSavePdf($dataset)){
+				\Yii::error("Oh noes! PDF Creation failed");
+				$this->error = true;
 			}
 
 			// Die Logdateien sollen nur gelöscht und die Erinnerungen nur gespeichert werden wenn die pdf generierung erfolgreich war.
@@ -92,6 +80,30 @@ class GenerationController extends Controller
 			}
         }
     }
+
+	private function latexEscapeDataSet($dataSet) {
+		$dataSet["firstName"] = $this->latexEscape($dataSet["firstName"]);
+		$dataSet["lastName"] = $this->latexEscape($dataSet["lastName"]);
+		$dataSet["street"] = $this->latexEscape($dataSet["street"]);
+		$dataSet["zip"] = $this->latexEscape($dataSet["zip"]);
+		$dataSet["city"] = $this->latexEscape($dataSet["city"]);
+		$dataSet["email"] = $this->latexEscape($dataSet["email"]);
+		$dataSet["additional"] = $this->latexEscape($dataSet["additional"]);
+		return $dataSet;
+	}
+
+	private function generateAndSavePdf($dataSet) {
+		$targets = json_decode($dataSet["targets"]);
+		$ret = true;
+		foreach ($targets as $target) {
+			\Yii::info("Target: " . $target);
+			$this->saveStats($target);
+			if (!$this->generatePdf(Adressdaten::findOne(["id" => $target]), $dataSet, $targetFolder)) {
+				$ret = false;
+			}
+		}
+		return $ret;
+	}
 
     private function addGeneratedDate ($id) {
 		$model = new Generated();

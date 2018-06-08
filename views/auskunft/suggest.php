@@ -15,24 +15,9 @@ $this->title = 'Datensammler melden';
 <div class="alert alert-success">
     Successfully Inserted Data
 </div>
-<?php elseif (Yii::$app->session->hasFlash('contactFormFailed')): ?>
-
-<div class="alert alert-danger">
-    Failed to Insert data.
-</div>
-<?php if (YII_DEBUG): ?>
-<p>
-    <?php
-        highlight_string("<?php\n\$model =\n" . var_export($model, true) . ";\n?>");
-        highlight_string("<?php\n\$model->errors =\n" . var_export($model->errors, true) . ";\n?>");
-        highlight_string("<?php\n\$_POST =\n" . var_export($_POST, true) . ";\n?>");
-        highlight_string("<?php\n\$_SESSION =\n" . var_export($_SESSION, true) . ";\n?>");
-    ?>
-</p>
-<?php endif; ?>
-<?php elseif (Yii::$app->session->hasFlash('contactFormInvalid')): ?>
-<div class="alert alert-warning">
-    Invalid Data supplyed.
+<?php if (Yii::$app->session->hasFlash('contactFormFailed') || Yii::$app->session->hasFlash('contactFormInvalid')): ?>
+<div class="alert alert-<?php echo Yii::$app->session->hasFlash('contactFormInvalid') ? "warning" : "danger"; ?>">
+    <?php echo Yii::$app->session->hasFlash('contactFormInvalid') ? "Invalid Data supplyed." : "Failed to Insert data."; ?>
 </div>
 <?php if (YII_DEBUG): ?>
 <p>
