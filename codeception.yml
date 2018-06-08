@@ -25,11 +25,13 @@ coverage:
            - models/*
            - controllers/*
            - commands/*
+           - components/*
+           - views/*
+           - widgets/*
        exclude:
            - assets/*
            - config/*
            - runtime/*
            - vendor/*
-           - views/*
            - web/*
            - tests/*
