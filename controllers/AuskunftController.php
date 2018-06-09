@@ -35,13 +35,15 @@ class AuskunftController extends \yii\web\Controller
         $ziele = Adressdaten::find()->select(["id", "typ", "branche", "name", "stadt", "bundesland", "email", "fax"])->orderBy("branche")->addOrderBy("typ")->addOrderBy("name")->asArray()->all();
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate()) {
+            if ($model->validate() && !$model->targets == '') {
                 // Weil Relationen hier unnötig viel Aufwand wären speichern wir alle Ziele als Json
                 $model->targets = json_encode($model->targets);
 
                 if ($model->save()) {
                     return $this->render('success');
                 }
+            } elseif ($model->targets == []){
+                Yii::$app->session->setFlash('info', 'Bitte mindestens ein Ziel angeben.');
             }
         }
 
@@ -65,10 +67,11 @@ class AuskunftController extends \yii\web\Controller
             if ($model->validate()) {
                 if ($model->save(false)) { // no validation for insertion, is done before
                     Yii::$app->session->/** @scrutinizer ignore-call */setFlash('contactFormSubmitted');
+                    return $this->refresh();                    
                 }
-                Yii::$app->session->setFlash('contactFormFailed');
-            } 
-            Yii::$app->session->setFlash('contactFormInvalid');
+                Yii::$app->session->setFlash('danger', 'Failed to Insert data.');
+            }
+            Yii::$app->session->setFlash('warning', 'Invalid Data supplyed.');
         }
 
         return $this->render('suggest', [

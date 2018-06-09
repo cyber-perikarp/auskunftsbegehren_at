@@ -14,6 +14,7 @@ $this->title = "Generieren";
 <div class="auskunft-daten">
     <?php
 	$form = ActiveForm::begin([
+		'id' => 'generate-form',
 		'layout' => 'horizontal',
 		'fieldConfig' => [
 			'options' => [

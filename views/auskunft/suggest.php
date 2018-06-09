@@ -17,11 +17,6 @@ $this->title = 'Datensammler melden';
     Successfully Inserted Data
 </div>
 <?php else: ?>
-<?php if (Yii::$app->session->hasFlash('contactFormFailed') || Yii::$app->session->hasFlash('contactFormInvalid')): ?>
-<div class="alert alert-<?php echo Yii::$app->session->hasFlash('contactFormInvalid') ? "warning" : "danger"; ?>">
-    <?php echo Yii::$app->session->hasFlash('contactFormInvalid') ? "Invalid Data supplyed." : "Failed to Insert data."; ?>
-</div>
-<?php endif; ?>
 <div class="sammler-melden">
     <?php
     $form = ActiveForm::begin([
