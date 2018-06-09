@@ -4,7 +4,7 @@ namespace tests\models;
 
 use app\models\AdressdatenSuggest;
 
-class SuggestFormTest extends \Codeception\Test\Unit
+class SuggestModelTest extends \Codeception\Test\Unit
 {
     private $model;
     /**
@@ -23,7 +23,7 @@ class SuggestFormTest extends \Codeception\Test\Unit
             ->method('validate')
             ->will($this->returnValue(true));
 
-        $uid = '###TEST-'.time().'###';
+        $uid = '###TEST-SUGGEST-'.time().'###';
 
         # construct test-data
 

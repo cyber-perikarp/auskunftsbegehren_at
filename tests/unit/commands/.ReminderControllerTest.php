@@ -3,8 +3,12 @@
 namespace tests\models;
 
 use app\models\Auskunft;
+use app\models\Generated;
+use app\models\Reminders;
 
-class AuskunftFormTest extends \Codeception\Test\Unit
+use app\commands\ReminderController;
+
+class ReminderControllerTest extends \Codeception\Test\Unit
 {
     private $model;
     /**
@@ -12,9 +16,9 @@ class AuskunftFormTest extends \Codeception\Test\Unit
      */
     public $tester;
 
-    public function testAuskunftIsSaved()
+    public function testReminderIsSaved()
     {
-        /** @var Auskunft $model */
+        /** @var Reminders $model */
         $this->model = $this->getMockBuilder('app\models\Auskunft')
             ->setMethods(['validate'])
             ->getMock();
@@ -44,6 +48,6 @@ class AuskunftFormTest extends \Codeception\Test\Unit
 
         //expect($this->model->validate())->equals(true);
         expect($this->model->save())->equals(true);
-        $this->tester->seeInDatabase("auskunft", $this->model->attributes);
+        $this->tester->seeInDatabase("reminders", ['email' => "daniel@derzer.at", 'targets' => $uid]);
     }
 }
