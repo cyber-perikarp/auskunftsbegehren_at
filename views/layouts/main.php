@@ -42,7 +42,8 @@ AppAsset::register($this);
         ['label' => 'Kontakt', 'url' => ['/site/contact']]
     ];
     if (!Yii::$app->user->getIsGuest()) {
-        $labels[] = ['label' => 'Admin-UI', 'url' => ['/site/admin']];
+        $labels[] = ['label' => 'Admin-UI', 'url' => ['/admin']];
+        $labels[] = ['label' => 'Logout', 'url' => ['/site/logout']];
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
