@@ -15,6 +15,10 @@ return [
     'language' => 'en-US',
     'components' => [
         'db' => $db,
+        'user' => [
+            'identityClass' => 'app\models\User',
+            'enableAutoLogin' => true,
+        ],
         'mailer' => [
             'useFileTransport' => true,
         ],

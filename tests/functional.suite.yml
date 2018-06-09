@@ -11,3 +11,13 @@ modules:
     enabled:
       - Filesystem
       - Yii2
+      - Db
+    config:
+        Db:
+          dsn: 'mysql:host=derzer.at;dbname=auskunftsbegehren_at'
+          user: 'auskunftsbegehren_at'
+          password: 'auskunftsbegehren_at'
+          dump: ''
+          populate: false
+          cleanup: true
+          reconnect: true

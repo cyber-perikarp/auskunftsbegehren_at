@@ -20,6 +20,10 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '5tDVXrSvrhz3vsRnsVmlJy5LSdupPvjG',
         ],
+        'user' => [
+            'identityClass' => 'app\models\User',
+            'enableAutoLogin' => true,
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

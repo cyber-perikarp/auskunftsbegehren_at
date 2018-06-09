@@ -12,8 +12,8 @@ services:
       - MYSQL_USER=auskunftsbegehren_at
       - MYSQL_DATABASE=auskunftsbegehren_at
       - MYSQL_RANDOM_ROOT_PASSWORD=true
-    volumes:
-      - /opt/docker-mariadb:/var/lib/mysql
+#    volumes:
+#      - /opt/docker-mariadb:/var/lib/mysql
 
   importer:
     hostname: importer
