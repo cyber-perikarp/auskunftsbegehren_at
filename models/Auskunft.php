@@ -2,6 +2,22 @@
 
 namespace app\models;
 
+/**
+ * This is the model class for table "Adressdaten".
+ *
+ * @property string $id
+ * @property string $firstName
+ * @property string $lastName
+ * @property string $street
+ * @property string $streetNumber
+ * @property integer $zip
+ * @property string $city
+ * @property string $email
+ * @property string $additional
+ * @property integer $reminder
+ * @property integer $idType
+ * @property string $targets
+ */
 class Auskunft extends BaseModel {
     /**
      * @inheritdoc
