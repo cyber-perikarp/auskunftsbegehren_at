@@ -38,6 +38,7 @@ class AdressdatenSuggest extends Adressdaten
         $rules[] = [['verifyCode', 'tel'], 'required'];
         $rules[] = ['verifyCode', 'captcha', 'captchaAction' =>'auskunft/captcha'];
         $rules[] = [['fax', 'tel'], 'match', 'pattern'=>'/^\+43[0-9]+$/'];
+        $rules[] = ['email', 'email'];
         $rules[] = [['fax', 'email'], 'mailOrFax', 'skipOnEmpty' => false];
         return $rules;
     }
