@@ -69,7 +69,6 @@ class AuskunftController extends \yii\web\Controller
                 Yii::$app->session->setFlash('contactFormFailed');
             } 
             Yii::$app->session->setFlash('contactFormInvalid');
-            return $this->refresh();
         }
 
         return $this->render('suggest', [

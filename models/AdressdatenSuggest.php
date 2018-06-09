@@ -60,7 +60,7 @@ class AdressdatenSuggest extends Adressdaten
     public function attributeLabels()
     {
         $attributeLabels = parent::attributeLabels();
-        $attributeLabels['verifyCode'] = 'Verify that you are alive';
+        $attributeLabels['verifyCode'] = 'Captcha';
         return $attributeLabels;
     }
 

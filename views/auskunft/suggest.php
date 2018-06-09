@@ -11,6 +11,7 @@ use yii\captcha\Captcha;
 
 $this->title = 'Datensammler melden';
 ?>
+<h1><?= $this->title ?></h1>
 <?php if (Yii::$app->session->/** @scrutinizer ignore-call */hasFlash('contactFormSubmitted')): ?>
 <div class="alert alert-success">
     Successfully Inserted Data
@@ -19,16 +20,6 @@ $this->title = 'Datensammler melden';
 <div class="alert alert-<?php echo Yii::$app->session->hasFlash('contactFormInvalid') ? "warning" : "danger"; ?>">
     <?php echo Yii::$app->session->hasFlash('contactFormInvalid') ? "Invalid Data supplyed." : "Failed to Insert data."; ?>
 </div>
-<?php if (YII_DEBUG): ?>
-<p>
-    <?php
-        highlight_string("<?php\n\$model =\n" . var_export($model, true) . ";\n?>");
-        highlight_string("<?php\n\$model->errors =\n" . var_export($model->errors, true) . ";\n?>");
-        highlight_string("<?php\n\$_POST =\n" . var_export($_POST, true) . ";\n?>");
-        highlight_string("<?php\n\$_SESSION =\n" . var_export($_SESSION, true) . ";\n?>");
-    ?>
-</p>
-<?php endif; ?>
 <?php endif; ?>
 <div class="sammler-melden">
     <?php

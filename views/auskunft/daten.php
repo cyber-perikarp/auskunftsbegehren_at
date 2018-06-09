@@ -10,9 +10,7 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = "Generieren";
 ?>
-<h1>
-	Start
-</h1>
+<h1><?= $this->title ?></h1>
 <div class="auskunft-daten">
     <?php
 	$form = ActiveForm::begin([
