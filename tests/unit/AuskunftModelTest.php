@@ -45,5 +45,7 @@ class AuskunftModelTest extends \Codeception\Test\Unit
         //expect($this->model->validate())->equals(true);
         expect($this->model->save())->equals(true);
         $this->tester->seeInDatabase("auskunft", $this->model->attributes);
+        expect($this->model->delete())->equals(true);
+        $this->tester->dontSeeInDatabase("auskunft", ['targets' => $uid]);
     }
 }

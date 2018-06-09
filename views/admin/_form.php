@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="adressdaten-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => 'admin-create']); ?>
 
     <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
 

@@ -8,7 +8,6 @@ use Yii;
  * This is the model class for table "Adressdaten".
  *
  * @property string $id
- * @property string $quelldatei
  * @property string $name
  * @property string $branche
  * @property string $typ

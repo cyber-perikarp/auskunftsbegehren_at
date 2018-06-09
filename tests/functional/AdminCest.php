@@ -17,66 +17,48 @@ class AdminCest
         $I->see('Admin-UI', 'h1');        
     }
 
-    // TODO: Way more testing
+    public function checkCreateAndUpdate(\FunctionalTester $I)
+    {
+        $I->see('Admin-UI', 'h1');
+        $I->click('Create Adressdaten', '.btn-success');
+        $I->see('Create Adressdaten', 'h1');
 
-    // public function checkSubmitFormWithIncorrectCaptcha(\FunctionalTester $I)
-    // {
-    //     $I->submitForm('#suggest-form', [
-    //         'AdressdatenSuggest[name]' => 'Test-Datensammler',
-    //         'AdressdatenSuggest[email]' => 'tester.email',
-    //         'AdressdatenSuggest[adresse]' => 'test adress 1234',
-    //         'AdressdatenSuggest[plz]' => '1234',
-    //         'AdressdatenSuggest[branche]' => 'Test',
-    //         'AdressdatenSuggest[typ]' => 'Test',
-    //         'AdressdatenSuggest[stadt]' => 'Wien',
-    //         'AdressdatenSuggest[bundesland]' => 'Wien',
-    //         'AdressdatenSuggest[land]' => 'AT',
-    //         'AdressdatenSuggest[tel]' => '+436600000000',
-    //         'AdressdatenSuggest[email]' => 'test.email',
-    //         'AdressdatenSuggest[fax]' => '',
-    //         'AdressdatenSuggest[plz]' => '1234',
-    //         'AdressdatenSuggest[plz]' => '1234',
-    //         'AdressdatenSuggest[verifyCode]' => 'pls_let_me_in'
-    //     ]);
-    //     $I->see('Invalid Data supplyed.', '.alert-warning');
-    //     $I->dontSee('Failed to Insert data.', '.alert-danger');
-    //     $I->dontSee('Successfully Inserted Data', '.alert-success');
-    //     $I->see('The verification code is incorrect.', '.help-block');
-        
-    //     $I->dontSee('Name cannot be blank', '.help-block');
-    //     $I->dontSee('Adresse cannot be blank', '.help-block');
-    //     $I->dontSee('Plz cannot be blank', '.help-block');
-    //     $I->dontSee('Stadt cannot be blank', '.help-block');
-    //     $I->dontSee('Bundesland cannot be blank', '.help-block');
-    //     $I->dontSee('Land cannot be blank', '.help-block');
-    //     $I->dontSee('Tel cannot be blank', '.help-block');
-    //     $I->dontSee('Either Email or Fax must be filled up properly', '.help-block');
-    //     $I->dontSee('Captcha cannot be blank', '.help-block');   
-    // }
+        $uid = '###TEST-ADMIN-CREATE-'.time().'###';
 
+        $I->submitForm('#admin-create', [
+            'Adressdaten[id]' => $uid,
+            'Adressdaten[name]' => 'Datensammler 2k',
+            'Adressdaten[branche]' => 'test',
+            'Adressdaten[typ]' => 'test',
+            'Adressdaten[adresse]' => 'Marinelligasse 15/28',
+            'Adressdaten[plz]' => 1020,
+            'Adressdaten[stadt]' => 'Wien',
+            'Adressdaten[bundesland]' => 'Wien',
+            'Adressdaten[land]' => 'AT',
+            'Adressdaten[email]' => 'daniel@derzer.at',
+            'Adressdaten[tel]' => '+436605959699',
+            'Adressdaten[fax]' => ''
+        ]);
 
-    // public function checkSubmitFormSuccessfully(\FunctionalTester $I)
-    // {
-    //     $I->submitForm('#suggest-form', [
-    //         'AdressdatenSuggest[name]' => 'Test-Datensammler',
-    //         'AdressdatenSuggest[email]' => 'tester.email',
-    //         'AdressdatenSuggest[adresse]' => 'test adress 1234',
-    //         'AdressdatenSuggest[plz]' => '1234',
-    //         'AdressdatenSuggest[branche]' => 'Test',
-    //         'AdressdatenSuggest[typ]' => 'Test',
-    //         'AdressdatenSuggest[stadt]' => 'Wien',
-    //         'AdressdatenSuggest[bundesland]' => 'Wien',
-    //         'AdressdatenSuggest[land]' => 'AT',
-    //         'AdressdatenSuggest[tel]' => '+436600000000',
-    //         'AdressdatenSuggest[email]' => 'test@mail.ru',
-    //         'AdressdatenSuggest[fax]' => '',
-    //         'AdressdatenSuggest[plz]' => '1234',
-    //         'AdressdatenSuggest[plz]' => '1234',
-    //         'AdressdatenSuggest[verifyCode]' => 'test'
-    //     ]);
-    //     $I->dontSeeElement('#suggest-form');
-    //     $I->see('Successfully Inserted Data', '.alert-success');
-    //     $I->dontSee('Invalid Data supplyed.', '.alert-warning');
-    //     $I->dontSee('Failed to Insert data.', '.alert-danger');
-    // }
+        $I->see('Datensammler 2k', 'h1');
+        $I->click('Update');
+        $I->see('Update Adressdaten: Datensammler 2k', 'h1');
+        $I->fillField(['name' => 'Adressdaten[email]'], 'test@mail.ru');
+        $I->click('Save');
+        $I->see('Datensammler 2k', 'h1');
+        $I->seeRecord("app\models\Adressdaten", [
+            'id' => $uid,
+            'name' => 'Datensammler 2k',
+            'branche' => 'test',
+            'typ' => 'test',
+            'adresse' => 'Marinelligasse 15/28',
+            'plz' => 1020,
+            'stadt' => 'Wien',
+            'bundesland' => 'Wien',
+            'land' => 'AT',
+            'email' => 'test@mail.ru',
+            'tel' => '+436605959699',
+            'fax' => ''
+        ]);
+    }
 }

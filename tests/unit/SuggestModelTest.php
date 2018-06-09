@@ -30,7 +30,6 @@ class SuggestModelTest extends \Codeception\Test\Unit
         $this->model->attributes = [
             'id' => $uid,
             'name' => 'Datensammler 2k',
-            'quelldatei' => '###Suggestion###',
             'branche' => 'test',
             'typ' => 'test',
             'adresse' => 'Marinelligasse 15/28',
@@ -49,5 +48,7 @@ class SuggestModelTest extends \Codeception\Test\Unit
         expect($this->model->validate())->equals(true);
         expect($this->model->save(false))->equals(true);
         $this->tester->seeInDatabase("adressdaten", ['id' => $uid]);
+        expect($this->model->delete())->equals(true);
+        $this->tester->dontSeeInDatabase("adressdaten", ['id' => $uid]);
     }
 }
