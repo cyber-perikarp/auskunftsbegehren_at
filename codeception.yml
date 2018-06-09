@@ -24,12 +24,12 @@ coverage:
        include:
            - models/*
            - controllers/*
-           - commands/*
            - components/*
            - views/*
            - widgets/*
        exclude:
            - assets/*
+           - commands/*
            - config/*
            - runtime/*
            - vendor/*
