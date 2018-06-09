@@ -38,15 +38,10 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays about page.
+     * Displays contact page.
      *
      * @return string
      */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
     public function actionContact()
     {
         $model = new ContactForm();
@@ -59,16 +54,41 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * Displays imprint page.
+     *
+     * @return string
+     */
 	public function actionImprint()
 	{
 		return $this->render('imprint');
+    }
+    
+    /**
+     * Displays error page. (for testing)
+     *
+     * @return string
+     */
+	public function actionError()
+	{
+		return $this->render('error');
 	}
 
+    /**
+     * Displays privacy page.
+     *
+     * @return string
+     */
 	public function actionPrivacy()
 	{
 		return $this->render('privacy');
-	}
-
+    }
+    
+    /**
+     * Displays faq page.
+     *
+     * @return string
+     */
     public function actionFaq()
     {
         return $this->render('faq');
