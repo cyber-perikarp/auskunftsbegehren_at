@@ -12,6 +12,7 @@ services:
       - MYSQL_USER=auskunftsbegehren_at
       - MYSQL_DATABASE=auskunftsbegehren_at
       - MYSQL_RANDOM_ROOT_PASSWORD=true
+# Non persistent volume during development
 #    volumes:
 #      - /opt/docker-mariadb:/var/lib/mysql
 

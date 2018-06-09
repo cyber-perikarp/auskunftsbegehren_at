@@ -35,14 +35,18 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    $labels = [
+        ['label' => 'Startseite', 'url' => ['/site/index']],
+        ['label' => 'FAQ', 'url' => ['/site/faq']],
+        ['label' => 'Auskunft verlangen!', 'url' => ['/auskunft/index']],
+        ['label' => 'Kontakt', 'url' => ['/site/contact']]
+    ];
+    if (!Yii::$app->user->getIsGuest()) {
+        $labels[] = ['label' => 'Admin-UI', 'url' => ['/site/admin']];
+    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Startseite', 'url' => ['/site/index']],
-            ['label' => 'FAQ', 'url' => ['/site/faq']],
-            ['label' => 'Auskunft verlangen!', 'url' => ['/auskunft/index']],
-            ['label' => 'Kontakt', 'url' => ['/site/contact']]
-        ],
+        'items' => $labels,
     ]);
     NavBar::end();
     ?>

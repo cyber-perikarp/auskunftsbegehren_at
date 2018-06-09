@@ -1,6 +1,5 @@
 #!/bin/bash
 
 docker-compose up database importer mailcatcher phpmyadmin &
-sleep 5
-./yii migrate --interactive=0 > /dev/stdout 2>&1
+$(sleep 25; ./yii migrate --interactive=0 > /dev/stdout 2>&1;) &
 ./yii serve --port=8080
