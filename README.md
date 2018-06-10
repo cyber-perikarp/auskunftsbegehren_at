@@ -5,7 +5,6 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/6225f49da0e0ccaa7fde/maintainability)](https://codeclimate.com/github/cyber-perikarp/auskunftsbegehren_at/maintainability)
 [![Build Status](https://travis-ci.org/cyber-perikarp/auskunftsbegehren_at.svg?branch=master)](https://travis-ci.org/cyber-perikarp/auskunftsbegehren_at)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7f0a7585d0dd416ca7f2137c99812b4e)](https://www.codacy.com/app/deadda7a/auskunftsbegehren_at?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=cyber-perikarp/auskunftsbegehren_at&amp;utm_campaign=Badge_Grade)
-[![Dependency Status](https://www.versioneye.com/user/projects/5a325db20fb24f703eb74376/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5a325db20fb24f703eb74376)
 [![Coverage Status](https://coveralls.io/repos/github/cyber-perikarp/auskunftsbegehren_at/badge.svg?branch=master)](https://coveralls.io/github/cyber-perikarp/auskunftsbegehren_at?branch=master)
 
 Quellcode für https://www.auskunftsbegehren.at
