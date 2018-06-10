@@ -25,6 +25,7 @@ install:
   - codecept build
 
 script:
-  - codecept run --coverage --coverage-xml --coverage-html
+  - codecept run --coverage --coverage-xml
 
-after_success: "sbt coveralls"
+after_success: 
+  - travis_retry php vendor/bin/php-coveralls
