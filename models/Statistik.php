@@ -32,16 +32,4 @@ class Statistik extends \yii\db\ActiveRecord
             [['identifier'], 'string', 'max' => 64],
         ];
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'counter' => 'Counter',
-            'identifier' => 'Identifier',
-        ];
-    }
 }

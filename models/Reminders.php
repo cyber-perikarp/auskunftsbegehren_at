@@ -36,18 +36,4 @@ class Reminders extends BaseModel
             [['email'], 'string', 'max' => 64],
         ];
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'email' => 'Email',
-            'targets' => 'Ziele',
-            'created_at' => 'Created At',
-            'due_at' => 'Due At',
-        ];
-    }
 }

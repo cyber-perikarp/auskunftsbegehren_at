@@ -69,9 +69,9 @@ class AuskunftController extends \yii\web\Controller
                     Yii::$app->session->/** @scrutinizer ignore-call */setFlash('contactFormSubmitted');
                     return $this->refresh();                    
                 }
-                Yii::$app->session->setFlash('danger', 'Failed to Insert data.');
+                Yii::$app->session->setFlash('danger', 'Fehler beim speichern.');
             }
-            Yii::$app->session->setFlash('warning', 'Invalid Data supplyed.');
+            Yii::$app->session->setFlash('warning', 'Fehlerhafte daten.');
         }
 
         return $this->render('suggest', [

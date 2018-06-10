@@ -14,7 +14,7 @@ $this->title = 'Datensammler melden';
 <h1><?= $this->title ?></h1>
 <?php if (Yii::$app->session->/** @scrutinizer ignore-call */hasFlash('contactFormSubmitted')): ?>
 <div class="alert alert-success">
-    Successfully Inserted Data
+    Danke für Ihre meldung!
 </div>
 <?php else: ?>
 <div class="sammler-melden">
@@ -79,10 +79,8 @@ $this->title = 'Datensammler melden';
         </div>
 
         <span id="help-data" class="help-block">
-            Mail oder fax, aber ned beides. (Format: +43664XXXXXXX)</br>
-            Ne, beides is auch ok.</br>
-            Validierung sagt nein :O</br>
-            fucking Captcha (╯°□°）╯︵ ┻━┻
+            Mail oder Fax müssen angegeben werden. (Format: +43664XXXXXXX)</br>
+            (╯°□°）╯︵ ┻━┻
         </span>
 
         <div class="form-row">

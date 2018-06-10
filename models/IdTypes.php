@@ -31,16 +31,4 @@ class IdTypes extends BaseModel
             [['name', 'nameForText'], 'string', 'max' => 64],
         ];
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'nameForText' => 'Name For Text',
-        ];
-    }
 }

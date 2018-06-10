@@ -34,7 +34,7 @@ class AdressdatenSuggest extends Adressdaten
         // TODO: Add REAL Telephone Validation
 
         $rules = parent::rules();
-        $rules[] = [['verifyCode', 'tel'], 'required'];
+        $rules[] = [['verifyCode', 'tel'], 'required', 'message' => '{attribute} ist ein Pflichtfeld.'];
         $rules[] = ['verifyCode', 'captcha', 'captchaAction' =>'auskunft/captcha'];
         $rules[] = [['fax', 'tel'], 'match', 'pattern'=>'/^\+43[0-9]+$/'];
         $rules[] = ['email', 'email'];
@@ -46,7 +46,7 @@ class AdressdatenSuggest extends Adressdaten
     {
         if (empty($this->fax) && empty($this->email)
         ) {
-            $this->addError($attributeName, 'Either Email or Fax must be filled up properly');
+            $this->addError($attributeName, 'Email oder Fax müssen angegeben werden.');
 
             return false;
         }

@@ -34,17 +34,6 @@ class Generated extends \yii\db\ActiveRecord
             [['id'], 'string', 'max' => 128],
         ];
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'generated_at' => 'Generated At',
-            'todelete_at' => 'Todelete At',
-            'linkopened' => 'Linkopened',
-        ];
-    }
 }
+     
+     

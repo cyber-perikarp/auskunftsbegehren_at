@@ -20,11 +20,11 @@ class ContactFormCest
     {
         $I->submitForm('#contact-form', []);
         $I->see('Contact', 'h1');
-        $I->see('Name cannot be blank', '.help-block');
-        $I->see('E-Mail cannot be blank', '.help-block');
-        $I->see('Betreff cannot be blank', '.help-block');
-        $I->see('Nachricht cannot be blank', '.help-block');
-        $I->see('Captcha cannot be blank.', '.help-block');
+        $I->see('Name ist ein Pflichtfeld.', '.help-block');
+        $I->see('E-Mail ist ein Pflichtfeld.', '.help-block');
+        $I->see('Betreff ist ein Pflichtfeld.', '.help-block');
+        $I->see('Nachricht ist ein Pflichtfeld.', '.help-block');
+        $I->see('Captcha ist ein Pflichtfeld.', '.help-block');
     }
 
     public function checkSubmitFormWithIncorrectEmail(\FunctionalTester $I)
@@ -37,10 +37,10 @@ class ContactFormCest
             'ContactForm[verifyCode]' => 'test',
         ]);
         $I->see('E-Mail is not a valid email address.', '.help-block');
-        $I->dontSee('Name cannot be blank', '.help-block');
-        $I->dontSee('Betreff cannot be blank', '.help-block');
-        $I->dontSee('Nachricht cannot be blank', '.help-block');
-        $I->dontSee('Captcha cannot be blank.', '.help-block');        
+        $I->dontSee('Name ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Betreff ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Nachricht ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Captcha ist ein Pflichtfeld.', '.help-block');        
     }
 
     public function checkSubmitFormSuccessfully(\FunctionalTester $I)
@@ -54,6 +54,6 @@ class ContactFormCest
         ]);
         $I->seeEmailIsSent();
         $I->dontSeeElement('#contact-form');
-        $I->see('Thank you for contacting us. We will respond to you as soon as possible.');        
+        $I->see('Danke für Ihre Nachricht, wir werden uns so bald wie möglich um Ihr anliegen kümmern.');        
     }
 }

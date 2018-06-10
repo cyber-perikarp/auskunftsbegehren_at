@@ -37,7 +37,7 @@ class Adressdaten extends BaseModel
     public function rules()
     {
         return [
-            [['id', 'name', 'branche', 'typ', 'adresse', 'plz', 'stadt', 'bundesland', 'land'], 'required'],
+            [['id', 'name', 'branche', 'typ', 'adresse', 'plz', 'stadt', 'bundesland', 'land'], 'required', 'message' => '{attribute} ist ein Pflichtfeld.'],
             [['plz'], 'integer'],
             [['adresse', 'stadt', 'bundesland', 'email'], 'string', 'max' => 64],
             [['name'], 'string', 'max' => 128],

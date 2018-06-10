@@ -49,4 +49,22 @@ class LoginFormTest extends \Codeception\Test\Unit
         expect($this->model->errors)->hasntKey('password');
     }
 
+    public function testLoginIsSuccessfull()
+    {
+        /** @var LoginForm $model */
+        $this->model = $this->getMockBuilder('app\models\LoginForm')
+            ->setMethods(['validate'])
+            ->getMock();
+
+        $this->model->expects($this->once())
+            ->method('validate')
+            ->will($this->returnValue(true));
+
+        $this->model->attributes = [
+            'username' => 'admin',
+            'password' => 'test',
+        ];
+
+        expect($this->model->validate())->equals(true);
+    }
 }

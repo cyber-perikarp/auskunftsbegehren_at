@@ -28,7 +28,7 @@ class ContactForm extends Model
     public function rules()
     {
         return [
-            [['name', 'email', 'subject', 'body', 'verifyCode'], 'required'],
+            [['name', 'email', 'subject', 'body', 'verifyCode'], 'required', 'message' => '{attribute} ist ein Pflichtfeld.'],
             ['verifyCode', 'captcha'],
             ['email', 'email']
         ];

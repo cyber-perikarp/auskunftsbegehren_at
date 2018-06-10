@@ -20,19 +20,19 @@ class SuggestFormCest
     {
         $I->submitForm('#suggest-form', []);
         $I->see('Datensammler melden', 'h1');
-        $I->see('Invalid Data supplyed.', '.alert-warning');
-        $I->dontSee('Failed to Insert data.', '.alert-danger');
-        $I->dontSee('Successfully Inserted Data', '.alert-success');
+        $I->see('Fehlerhafte daten.', '.alert-warning');
+        $I->dontSee('Fehler beim speichern.', '.alert-danger');
+        $I->dontSee('Danke für Ihre meldung!', '.alert-success');
 
-        $I->see('Name cannot be blank', '.help-block');
-        $I->see('Adresse cannot be blank', '.help-block');
-        $I->see('Plz cannot be blank', '.help-block');
-        $I->see('Stadt cannot be blank', '.help-block');
-        $I->see('Bundesland cannot be blank', '.help-block');
-        $I->see('Land cannot be blank', '.help-block');
-        $I->see('Tel cannot be blank', '.help-block');
-        $I->see('Either Email or Fax must be filled up properly', '.help-block');
-        $I->see('Captcha cannot be blank', '.help-block');
+        $I->see('Name ist ein Pflichtfeld.', '.help-block');
+        $I->see('Adresse ist ein Pflichtfeld.', '.help-block');
+        $I->see('Plz ist ein Pflichtfeld.', '.help-block');
+        $I->see('Stadt ist ein Pflichtfeld.', '.help-block');
+        $I->see('Bundesland ist ein Pflichtfeld.', '.help-block');
+        $I->see('Land ist ein Pflichtfeld.', '.help-block');
+        $I->see('Tel ist ein Pflichtfeld.', '.help-block');
+        $I->see('Email oder Fax müssen angegeben werden.', '.help-block');
+        $I->see('Captcha ist ein Pflichtfeld.', '.help-block');
     }
 
     public function checkSubmitFormWithIncorrectEmail(\FunctionalTester $I)
@@ -54,20 +54,20 @@ class SuggestFormCest
             'AdressdatenSuggest[plz]' => '1234',
             'AdressdatenSuggest[verifyCode]' => 'test'
         ]);
-        $I->see('Invalid Data supplyed.', '.alert-warning');
-        $I->dontSee('Failed to Insert data.', '.alert-danger');
-        $I->dontSee('Successfully Inserted Data', '.alert-success');
+        $I->see('Fehlerhafte daten.', '.alert-warning');
+        $I->dontSee('Fehler beim speichern.', '.alert-danger');
+        $I->dontSee('Danke für Ihre meldung!', '.alert-success');
         $I->see('Email is not a valid email address.', '.help-block');
 
-        $I->dontSee('Name cannot be blank', '.help-block');
-        $I->dontSee('Adresse cannot be blank', '.help-block');
-        $I->dontSee('Plz cannot be blank', '.help-block');
-        $I->dontSee('Stadt cannot be blank', '.help-block');
-        $I->dontSee('Bundesland cannot be blank', '.help-block');
-        $I->dontSee('Land cannot be blank', '.help-block');
-        $I->dontSee('Tel cannot be blank', '.help-block');
-        $I->dontSee('Either Email or Fax must be filled up properly', '.help-block');
-        $I->dontSee('Captcha cannot be blank', '.help-block');    
+        $I->dontSee('Name ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Adresse ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Plz ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Stadt ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Bundesland ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Land ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Tel ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Email oder Fax müssen angegeben werden.', '.help-block');
+        $I->dontSee('Captcha ist ein Pflichtfeld.', '.help-block');    
     }
 
     public function checkSubmitFormWithIncorrectTel(\FunctionalTester $I)
@@ -89,20 +89,20 @@ class SuggestFormCest
             'AdressdatenSuggest[plz]' => '1234',
             'AdressdatenSuggest[verifyCode]' => 'test'
         ]);
-        $I->see('Invalid Data supplyed.', '.alert-warning');
-        $I->dontSee('Failed to Insert data.', '.alert-danger');
-        $I->dontSee('Successfully Inserted Data', '.alert-success');
+        $I->see('Fehlerhafte daten.', '.alert-warning');
+        $I->dontSee('Fehler beim speichern.', '.alert-danger');
+        $I->dontSee('Danke für Ihre meldung!', '.alert-success');
         $I->see('Tel is invalid', '.help-block');
         
-        $I->dontSee('Name cannot be blank', '.help-block');
-        $I->dontSee('Adresse cannot be blank', '.help-block');
-        $I->dontSee('Plz cannot be blank', '.help-block');
-        $I->dontSee('Stadt cannot be blank', '.help-block');
-        $I->dontSee('Bundesland cannot be blank', '.help-block');
-        $I->dontSee('Land cannot be blank', '.help-block');
-        $I->dontSee('Tel cannot be blank', '.help-block');
-        $I->dontSee('Either Email or Fax must be filled up properly', '.help-block');
-        $I->dontSee('Captcha cannot be blank', '.help-block');   
+        $I->dontSee('Name ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Adresse ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Plz ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Stadt ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Bundesland ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Land ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Tel ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Email oder Fax müssen angegeben werden.', '.help-block');
+        $I->dontSee('Captcha ist ein Pflichtfeld.', '.help-block');   
     }
 
     public function checkSubmitFormWithIncorrectFax(\FunctionalTester $I)
@@ -124,20 +124,20 @@ class SuggestFormCest
             'AdressdatenSuggest[plz]' => '1234',
             'AdressdatenSuggest[verifyCode]' => 'test'
         ]);
-        $I->see('Invalid Data supplyed.', '.alert-warning');
-        $I->dontSee('Failed to Insert data.', '.alert-danger');
-        $I->dontSee('Successfully Inserted Data', '.alert-success');
+        $I->see('Fehlerhafte daten.', '.alert-warning');
+        $I->dontSee('Fehler beim speichern.', '.alert-danger');
+        $I->dontSee('Danke für Ihre meldung!', '.alert-success');
         $I->see('Fax is invalid.', '.help-block');
         
-        $I->dontSee('Name cannot be blank', '.help-block');
-        $I->dontSee('Adresse cannot be blank', '.help-block');
-        $I->dontSee('Plz cannot be blank', '.help-block');
-        $I->dontSee('Stadt cannot be blank', '.help-block');
-        $I->dontSee('Bundesland cannot be blank', '.help-block');
-        $I->dontSee('Land cannot be blank', '.help-block');
-        $I->dontSee('Tel cannot be blank', '.help-block');
-        $I->dontSee('Either Email or Fax must be filled up properly', '.help-block');
-        $I->dontSee('Captcha cannot be blank', '.help-block');   
+        $I->dontSee('Name ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Adresse ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Plz ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Stadt ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Bundesland ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Land ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Tel ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Email oder Fax müssen angegeben werden.', '.help-block');
+        $I->dontSee('Captcha ist ein Pflichtfeld.', '.help-block');   
     }
 
     public function checkSubmitFormWithIncorrectCaptcha(\FunctionalTester $I)
@@ -159,20 +159,20 @@ class SuggestFormCest
             'AdressdatenSuggest[plz]' => '1234',
             'AdressdatenSuggest[verifyCode]' => 'pls_let_me_in'
         ]);
-        $I->see('Invalid Data supplyed.', '.alert-warning');
-        $I->dontSee('Failed to Insert data.', '.alert-danger');
-        $I->dontSee('Successfully Inserted Data', '.alert-success');
+        $I->see('Fehlerhafte daten.', '.alert-warning');
+        $I->dontSee('Fehler beim speichern.', '.alert-danger');
+        $I->dontSee('Danke für Ihre meldung!', '.alert-success');
         $I->see('The verification code is incorrect.', '.help-block');
         
-        $I->dontSee('Name cannot be blank', '.help-block');
-        $I->dontSee('Adresse cannot be blank', '.help-block');
-        $I->dontSee('Plz cannot be blank', '.help-block');
-        $I->dontSee('Stadt cannot be blank', '.help-block');
-        $I->dontSee('Bundesland cannot be blank', '.help-block');
-        $I->dontSee('Land cannot be blank', '.help-block');
-        $I->dontSee('Tel cannot be blank', '.help-block');
-        $I->dontSee('Either Email or Fax must be filled up properly', '.help-block');
-        $I->dontSee('Captcha cannot be blank', '.help-block');   
+        $I->dontSee('Name ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Adresse ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Plz ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Stadt ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Bundesland ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Land ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Tel ist ein Pflichtfeld.', '.help-block');
+        $I->dontSee('Email oder Fax müssen angegeben werden.', '.help-block');
+        $I->dontSee('Captcha ist ein Pflichtfeld.', '.help-block');   
     }
 
 
@@ -196,8 +196,8 @@ class SuggestFormCest
             'AdressdatenSuggest[verifyCode]' => 'test'
         ]);
         $I->dontSeeElement('#suggest-form');
-        $I->see('Successfully Inserted Data', '.alert-success');
-        $I->dontSee('Invalid Data supplyed.', '.alert-warning');
-        $I->dontSee('Failed to Insert data.', '.alert-danger');
+        $I->see('Danke für Ihre meldung!', '.alert-success');
+        $I->dontSee('Fehlerhafte daten.', '.alert-warning');
+        $I->dontSee('Fehler beim speichern.', '.alert-danger');
     }
 }

@@ -14,23 +14,10 @@ $this->title = 'Contact';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php if (Yii::$app->session->/** @scrutinizer ignore-call */hasFlash('contactFormSubmitted')): ?>
-
         <div class="alert alert-success">
-            Thank you for contacting us. We will respond to you as soon as possible.
+            Danke für Ihre Nachricht, wir werden uns so bald wie möglich um Ihr anliegen kümmern.
         </div>
-
-        <p>
-            Note that if you turn on the Yii debugger, you should be able
-            to view the mail message on the mail panel of the debugger.
-        </p>
-
     <?php else: ?>
-
-        <p>
-            If you have business inquiries or other questions, please fill out the following form to contact us.
-            Thank you.
-        </p>
-
         <div class="row">
             <div class="col-lg-5">
 
