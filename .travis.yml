@@ -1,10 +1,32 @@
 language: php
+
 php:
-  - '7.0'
-  - '7.1'
-  - '7.2'
-  - hhvm
-  - nightly
+  - 7.1
+  - 7.2
+#  - hhvm
+
+# faster builds on new travis setup not using sudo
+sudo: false
+
+# cache vendor dirs
+cache:
+  directories:
+    - $HOME/.composer/cache
 
 install:
-  - 'composer install'
+  - travis_retry composer self-update && composer --version
+  - travis_retry composer global require "fxp/composer-asset-plugin:~1.4.3"
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - travis_retry composer install --dev --prefer-dist --no-interaction
+# codeception
+  - travis_retry composer global require "codeception/codeception=2.4.*" "codeception/specify=*" "codeception/verify=*"
+# setup application:
+  - sed -i "s/'cookieValidationKey' => '5tDVXrSvrhz3vsRnsVmlJy5LSdupPvjG'/'cookieValidationKey' => 'test'/" config/web.php
+  - codecept build
+
+script:
+  #- |
+  #  cd web
+  #  php -S localhost:8080 > /dev/null 2>&1 &
+  #  cd ../
+  - codecept run acceptance,functional,unit -vvv --coverage --coverage-xml --coverage-html

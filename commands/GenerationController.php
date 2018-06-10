@@ -25,18 +25,10 @@ class GenerationController extends Controller
 	    $allDatasets = Auskunft::find()->all();
 
         foreach ($allDatasets as $dataSet) {
-            $dataSet["firstName"] = $this->latexEscape($dataSet["firstName"]);
-            $dataSet["lastName"] = $this->latexEscape($dataSet["lastName"]);
-            $dataSet["street"] = $this->latexEscape($dataSet["street"]);
-            $dataSet["zip"] = $this->latexEscape($dataSet["zip"]);
-            $dataSet["city"] = $this->latexEscape($dataSet["city"]);
-            $dataSet["email"] = $this->latexEscape($dataSet["email"]);
-            $dataSet["additional"] = $this->latexEscape($dataSet["additional"]);
+			$dataSet = $this->latexEscapeDataSet($dataSet);
 
-            \Yii::trace("Processing entry for " . $dataSet["email"]);
+            \Yii::debug("Processing entry for " . $dataSet["email"]);
         	$this->error = false;
-
-        	$targets = json_decode($dataSet["targets"]);
 
         	$targetFolderHash = $this->generateHash();
 			$targetFolder = \Yii::$app->params["outputBaseDir"] . "/" . $targetFolderHash;
@@ -48,19 +40,15 @@ class GenerationController extends Controller
 			}
 
 			$dataSet["idType"] = IdTypes::findOne(["id" => $dataSet["idType"]])["nameForText"];
-
-			foreach ($targets as $target) {
-				\Yii::info("Target: " . $target);
-				$this->saveStats($target);
-				if (!$this->generatePdf(Adressdaten::findOne(["id" => $target]), $dataSet, $targetFolder)) {
-					\Yii::error("Oh noes! PDF Creation failed");
-					$this->error = true;
-				}
+			
+			if (!$this->generateAndSavePdf($dataSet, $targetFolder)){
+				\Yii::error("Oh noes! PDF Creation failed");
+				$this->error = true;
 			}
 
 			// Die Logdateien sollen nur gelöscht und die Erinnerungen nur gespeichert werden wenn die pdf generierung erfolgreich war.
 			if (!$this->error) {
-				\Yii::trace("Deleting log files from generation");
+				\Yii::debug("Deleting log files from generation");
 				$this->deleteTempFiles($targetFolder);
 			}
 
@@ -92,6 +80,30 @@ class GenerationController extends Controller
 			}
         }
     }
+
+	private function latexEscapeDataSet($dataSet) {
+		$dataSet["firstName"] = $this->latexEscape($dataSet["firstName"]);
+		$dataSet["lastName"] = $this->latexEscape($dataSet["lastName"]);
+		$dataSet["street"] = $this->latexEscape($dataSet["street"]);
+		$dataSet["zip"] = $this->latexEscape($dataSet["zip"]);
+		$dataSet["city"] = $this->latexEscape($dataSet["city"]);
+		$dataSet["email"] = $this->latexEscape($dataSet["email"]);
+		$dataSet["additional"] = $this->latexEscape($dataSet["additional"]);
+		return $dataSet;
+	}
+
+	private function generateAndSavePdf($dataSet, $targetFolder) {
+		$targets = json_decode($dataSet["targets"]);
+		$ret = true;
+		foreach ($targets as $target) {
+			\Yii::info("Target: " . $target);
+			$this->saveStats($target);
+			if (!$this->generatePdf(Adressdaten::findOne(["id" => $target]), $dataSet, $targetFolder)) {
+				$ret = false;
+			}
+		}
+		return $ret;
+	}
 
     private function addGeneratedDate ($id) {
 		$model = new Generated();
@@ -145,7 +157,7 @@ class GenerationController extends Controller
 		if ($targetFolder) {
 			foreach ($extensionsToDelete as $extension) {
 				foreach( glob($targetFolder . "/*." . $extension) as $file ) {
-					\Yii::trace("Deleting file: " . $file);
+					\Yii::debug("Deleting file: " . $file);
 					unlink($file);
 				}
 			}
@@ -167,7 +179,7 @@ class GenerationController extends Controller
 
 	private function generateZipFile ($path) {
     	$zipFile = $path . "/download.zip";
-		\Yii::trace("Adding file to zip: " . $zipFile);
+		\Yii::debug("Adding file to zip: " . $zipFile);
 
     	try {
 			$zip = new \ZipArchive();
@@ -181,7 +193,7 @@ class GenerationController extends Controller
     	if (file_exists($zipFile)) {
 			if ($path) {
 				foreach( glob($path . "/*.pdf") as $file ) {
-					\Yii::trace("Deleting file: " . $file);
+					\Yii::debug("Deleting file: " . $file);
 					unlink($file);
 				}
 			}
@@ -279,7 +291,7 @@ class GenerationController extends Controller
 
 		exec($command, $output, $returnCode);
 
-		\Yii::trace("Command pdflatex returned error code " . $returnCode);
+		\Yii::debug("Command pdflatex returned error code " . $returnCode);
 
 		if ($returnCode == 0) {
 			return true;
@@ -296,7 +308,7 @@ class GenerationController extends Controller
 
 		$template = str_replace("@@url@@", $downloadUrl, $template);
 
-		\Yii::trace("Mail to: " . $email);
+		\Yii::debug("Mail to: " . $email);
 
 		$mailStatus = \Yii::$app->mailer->compose()
 			->setFrom(\Yii::$app->params["email_from"])
@@ -305,6 +317,6 @@ class GenerationController extends Controller
 			->setTextBody($template)
 			->send();
 
-		\Yii::trace("Email status: " . $mailStatus);
+		\Yii::debug("Email status: " . $mailStatus);
 	}
 }
