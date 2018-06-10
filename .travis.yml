@@ -27,4 +27,4 @@ install:
 script:
   - codecept run --coverage --coverage-xml --coverage-html
 
-after_success: coveralls
+after_success: "sbt coveralls"
