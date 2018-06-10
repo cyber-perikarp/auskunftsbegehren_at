@@ -38,7 +38,7 @@ $this->title = 'Datensammler melden';
         ],
     ]);
     ?>
-	<div class="form-fields container">
+    <div class="form-fields container">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
@@ -104,9 +104,9 @@ $this->title = 'Datensammler melden';
 
 
 
-	<div class="form-group">
-		<?= Html::submitButton('Eintragen!', ['class' => 'btn btn-primary']) ?>
-	</div>
+    <div class="form-group">
+        <?= Html::submitButton('Eintragen!', ['class' => 'btn btn-primary']) ?>
+    </div>
 <?php ActiveForm::end(); ?>
 
 </div><!-- sammler-melden -->
