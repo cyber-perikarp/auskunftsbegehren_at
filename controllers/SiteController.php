@@ -47,6 +47,7 @@ class SiteController extends Controller
     {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['email_from'])) {
+            $this->sendMail($model->email, $model->name, $model->subject, $model->body);
             Yii::$app->session->setFlash('contactFormSubmitted');
             return $this->refresh();
         }
@@ -54,6 +55,19 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    private function sendMail ($email, $name, $subject, $body) {
+		\Yii::debug("Contact mail from: " . $email);
+
+		$mailStatus = \Yii::$app->mailer->compose()
+			->setFrom($email)
+			->setTo(\Yii::$app->params["email_from"])
+			->setSubject($subject)
+			->setTextBody($body)
+			->send();
+
+		\Yii::debug("Email status: " . $mailStatus);
+	}
 
     /**
      * Displays imprint page.
