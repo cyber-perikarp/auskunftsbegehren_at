@@ -1,7 +1,7 @@
 <?php
 
 $env = require __DIR__ . '/env.php';
-$dev = require __DIR__ . '/dev_prod_by_host.php';
+$dev = false;
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 $mail = require __DIR__ . '/mail.php';
