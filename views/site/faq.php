@@ -12,15 +12,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Warum ist das so kompliziert?</h3>
-        </div>
-        <div class="panel-body">
-            Panel content
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
             <h3 class="panel-title">Welche Daten speichern wir?</h3>
         </div>
         <div class="panel-body">
